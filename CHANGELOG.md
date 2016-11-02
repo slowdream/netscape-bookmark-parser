@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [v1.1.0](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v1.1.0) - UNPUBLISHED
 ### Added
 - Add `CHANGELOG.md`
+- Enable Composer cache for Travis builds
 
 ### Fixed
 - Keep Composer metadata in Git-generated archives
