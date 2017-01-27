@@ -1,5 +1,11 @@
 <?php
 
+namespace Shaarli\NetscapeBookmarkParser;
+
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Katzgrau\KLogger\Logger;
+
 /**
  * Generic Netscape bookmark parser
  */
@@ -10,17 +16,22 @@ class NetscapeBookmarkParser
     protected $defaultPub;
     protected $items;
 
+    /**
+     * @var LoggerInterface instance.
+     */
+    protected $logger;
+
     const TRUE_PATTERN = 'y|yes|on|checked|ok|1|true|array|\+|okay|yes|t|one';
     const FALSE_PATTERN = 'n|no|off|empty|null|false|nil|0|-|exit|die|neg|f|zero|void';
 
     /**
      * Instantiates a new NetscapeBookmarkParser
      *
-     * @param bool  $keepNestedTags Tag links with parent folder names
-     * @param array $defaultTags    Tag all links with these values
-     * @param mixed $defaultPub     Link publication status if missing
-     *                              - '1' => public
-     *                              - '0' => private)
+     * @param bool   $keepNestedTags Tag links with parent folder names
+     * @param array  $defaultTags    Tag all links with these values
+     * @param mixed  $defaultPub     Link publication status if missing
+     *                               - '1' => public
+     *                               - '0' => private)
      */
     public function __construct(
         $keepNestedTags=true,
@@ -37,6 +48,15 @@ class NetscapeBookmarkParser
             $this->defaultTags = array();
         }
         $this->defaultPub = $defaultPub;
+
+        $this->setLogger(new Logger(
+            __DIR__ . '/logs/',
+            LogLevel::INFO,
+            array(
+                'prefix' => 'import.',
+                'extension' => 'log',
+            )
+        ));
     }
 
     /**
@@ -48,6 +68,7 @@ class NetscapeBookmarkParser
      */
     public function parseFile($filename)
     {
+        $this->logger->info('Starting to parse '. $filename);
         return $this->parseString(file_get_contents($filename));
     }
 
@@ -85,38 +106,51 @@ class NetscapeBookmarkParser
         $lines = explode("\n", $this->sanitizeString($bookmarkString));
 
         foreach ($lines as $line_no => $line) {
+            $this->logger->info('PARSING LINE #'. $line_no);
+            $this->logger->debug('[#' . $line_no . '] Content: '. $line);
             if (preg_match('/^<h\d.*>(.*)<\/h\d>/i', $line, $m1)) {
                 // a header is matched:
                 // - links may be grouped in a (sub-)folder
                 // - append the header's content to the folder tags
-                $folderTags[] = strtolower($m1[1]);
+                $tag = strtolower($m1[1]);
+                $folderTags[] = $tag;
+                $this->logger->debug('[#' . $line_no . '] Header found: ' . $tag);
                 continue;
 
             } elseif (preg_match('/^<\/DL>/i', $line)) {
                 // </DL> matched: stop using header value
-                array_pop($folderTags);
+                $tag = array_pop($folderTags);
+                $this->logger->debug('[#' . $line_no . '] Header ended: ' . $tag);
                 continue;
             }
 
             if (preg_match('/<a/i', $line, $m2)) {
+                $this->logger->debug('[#' . $line_no . '] Link found');
                 if (preg_match('/href="(.*?)"/i', $line, $m3)) {
                     $this->items[$i]['uri'] = $m3[1];
+                    $this->logger->debug('[#' . $line_no . '] URL found: ' . $m3[1]);
                 } else {
                     $this->items[$i]['uri'] = '';
+                    $this->logger->debug('[#' . $line_no . '] Empty URL');
                 }
 
                 if (preg_match('/<a.*>(.*?)<\/a>/i', $line, $m4)) {
                     $this->items[$i]['title'] = $m4[1];
+                    $this->logger->debug('[#' . $line_no . '] Title found: ' . $m4[1]);
                 } else {
                     $this->items[$i]['title'] = 'untitled';
+                    $this->logger->debug('[#' . $line_no . '] Empty title');
                 }
 
                 if (preg_match('/note="(.*?)"<\/a>/i', $line, $m5)) {
                     $this->items[$i]['note'] = $m5[1];
+                    $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m5[1], 0, 50) . '...');
                 } elseif (preg_match('/<dd>(.*?)$/i', $line, $m6)) {
                     $this->items[$i]['note'] = str_replace('<br>', "\n", $m6[1]);
+                    $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m6[1], 0, 50) . '...');
                 } else {
                     $this->items[$i]['note'] = '';
+                    $this->logger->debug('[#' . $line_no . '] Empty content');
                 }
 
                 $tags = array();
@@ -134,12 +168,14 @@ class NetscapeBookmarkParser
                     );
                 }
                 $this->items[$i]['tags'] = implode(' ', $tags);
+                $this->logger->debug('[#' . $line_no . '] Tag list: '. $this->items[$i]['tags']);
 
                 if (preg_match('/add_date="(.*?)"/i', $line, $m8)) {
                     $this->items[$i]['time'] = $this->parseDate($m8[1]);
                 } else {
                     $this->items[$i]['time'] = time();
                 }
+                $this->logger->debug('[#' . $line_no . '] Date: '. $this->items[$i]['time']);
 
                 if (preg_match('/(public|published|pub)="(.*?)"/i', $line, $m9)) {
                     $this->items[$i]['pub'] = $this->parseBoolean($m9[2], false) ? 1 : 0;
@@ -148,11 +184,13 @@ class NetscapeBookmarkParser
                 } else {
                     $this->items[$i]['pub'] = $this->defaultPub;
                 }
+                $this->logger->debug('[#' . $line_no . '] Visibility: '. ($this->items[$i]['pub'] ? 'public' : 'private'));
 
                 $i++;
             }
         }
         ksort($this->items);
+        $this->logger->info('File parsing ended');
         return $this->items;
     }
 
@@ -253,5 +291,17 @@ class NetscapeBookmarkParser
         $sanitized = preg_replace('@\n<DD@i', '<DD', $sanitized);
 
         return $sanitized;
+    }
+
+    /**
+     * Set the logger, must be PSR-3 compliant.
+     *
+     * @see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
+     *
+     * @param LoggerInterface $logger
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
     }
 }
