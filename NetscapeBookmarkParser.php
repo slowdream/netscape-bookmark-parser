@@ -2,6 +2,7 @@
 
 namespace Shaarli\NetscapeBookmarkParser;
 
+use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Katzgrau\KLogger\Logger;
@@ -9,7 +10,7 @@ use Katzgrau\KLogger\Logger;
 /**
  * Generic Netscape bookmark parser
  */
-class NetscapeBookmarkParser
+class NetscapeBookmarkParser implements LoggerAwareInterface
 {
     protected $keepNestedTags;
     protected $defaultTags;
@@ -300,7 +301,7 @@ class NetscapeBookmarkParser
      *
      * @param LoggerInterface $logger
      */
-    public function setLogger($logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
