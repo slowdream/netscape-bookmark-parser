@@ -1,12 +1,14 @@
 <?php
 
+namespace Shaarli\NetscapeBookmarkParser;
+
 /**
  * Ensure basic Netscape bookmarks are properly parsed
  *
  * @see https://msdn.microsoft.com/en-us/library/aa753582%28v=vs.85%29.aspx
  * @see http://www.w3schools.com/tags/tag_dl.asp
  */
-class ParseNetscapeBookmarksTest extends PHPUnit_Framework_TestCase
+class ParseNetscapeBookmarksTest extends \PHPUnit_Framework_TestCase
 {
     protected $parser = null;
 
@@ -16,6 +18,14 @@ class ParseNetscapeBookmarksTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->parser = new NetscapeBookmarkParser(true, array(), 'error');
+    }
+
+    /**
+     * Delete log file.
+     */
+    public function tearDown()
+    {
+        @unlink(LoggerTestsUtils::getLogFile());
     }
 
     /**

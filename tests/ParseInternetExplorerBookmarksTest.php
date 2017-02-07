@@ -1,11 +1,13 @@
 <?php
 
+namespace Shaarli\NetscapeBookmarkParser;
+
 /**
  * Ensure Internet Explorer bookmarks are properly parsed
  *
  * The reference data has been dumped with IE 11
  */
-class ParseInternetExplorerBookmarksTest extends PHPUnit_Framework_TestCase
+class ParseInternetExplorerBookmarksTest extends \PHPUnit_Framework_TestCase
 {
     protected $parser = null;
 
@@ -16,6 +18,15 @@ class ParseInternetExplorerBookmarksTest extends PHPUnit_Framework_TestCase
     {
         $this->parser = new NetscapeBookmarkParser(true, array(), 'error');
     }
+
+    /**
+     * Delete log file.
+     */
+    public function tearDown()
+    {
+        @unlink(LoggerTestsUtils::getLogFile());
+    }
+
 
     /**
      * Parse flat IE bookmarks (no directories)

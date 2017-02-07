@@ -1,11 +1,13 @@
 <?php
 
+namespace Shaarli\NetscapeBookmarkParser;
+
 /**
  * Ensure Shaarli exports are properly parsed
  *
  * @see https://github.com/shaarli/Shaarli
  */
-class ParseShaarliBookmarksTest extends PHPUnit_Framework_TestCase
+class ParseShaarliBookmarksTest extends \PHPUnit_Framework_TestCase
 {
     protected $parser = null;
 
@@ -15,6 +17,14 @@ class ParseShaarliBookmarksTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->parser = new NetscapeBookmarkParser();
+    }
+
+    /**
+     * Delete log file.
+     */
+    public function tearDown()
+    {
+        @unlink(LoggerTestsUtils::getLogFile());
     }
 
     /**
