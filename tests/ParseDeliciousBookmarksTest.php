@@ -1,12 +1,22 @@
 <?php
 
+namespace Shaarli\NetscapeBookmarkParser;
+
 /**
  * Ensure Delicious exports are properly parsed
  *
  * @see http://delicious.com/
  */
-class ParseDeliciousBookmarksTest extends PHPUnit_Framework_TestCase
+class ParseDeliciousBookmarksTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Delete log file.
+     */
+    public function tearDown()
+    {
+        @unlink(LoggerTestsUtils::getLogFile());
+    }
+
     /**
      * Parse bookmarks as exported by Delicious
      */
