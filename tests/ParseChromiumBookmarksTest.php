@@ -1,22 +1,12 @@
 <?php
 
-namespace Shaarli\NetscapeBookmarkParser;
-
 /**
  * Ensure Chromium exports are properly parsed
  *
  * The reference data has been dumped with Chromium 51.0.2704.84
  */
-class ParseChromiumBookmarksTest extends \PHPUnit_Framework_TestCase
+class ParseChromiumBookmarksTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Delete log file.
-     */
-    public function tearDown()
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
-    }
-
     /**
      * Parse flat Chromium bookmarks (no directories)
      */

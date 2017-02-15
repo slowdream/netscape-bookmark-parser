@@ -19,14 +19,8 @@
     ],
     "keywords": ["bookmark", "link", "netscape", "parse"],
     "autoload": {"files": ["NetscapeBookmarkParser.php"]},
-    "autoload-dev": {
-        "psr-4": {
-            "Shaarli\\NetscapeBookmarkParser\\": "tests/"
-        }
-    },
     "require": {
-        "php": ">=5.3.4",
-        "katzgrau/klogger": "~1.0"
+        "php": ">=5.3.4"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.*"
