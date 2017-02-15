@@ -1,22 +1,12 @@
 <?php
 
-namespace Shaarli\NetscapeBookmarkParser;
-
 /**
  * Ensure Firefox exports are properly parsed
  *
  * The reference data has been dumped with Mozilla Firefox 46.0.1
  */
-class ParseFirefoxBookmarksTest extends \PHPUnit_Framework_TestCase
+class ParseFirefoxBookmarksTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Delete log file.
-     */
-    public function tearDown()
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
-    }
-
     /**
      * Parse flat Firefox bookmarks (no directories)
      */
