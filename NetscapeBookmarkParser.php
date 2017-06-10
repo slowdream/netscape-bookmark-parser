@@ -145,9 +145,9 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                     $this->logger->debug('[#' . $line_no . '] Empty title');
                 }
 
-                if (preg_match('/note="(.*?)"<\/a>/i', $line, $m5)) {
-                    $this->items[$i]['note'] = $m5[1];
-                    $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m5[1], 0, 50) . '...');
+                if (preg_match('/(description|note)="(.*?)"/i', $line, $m5)) {
+                    $this->items[$i]['note'] = $m5[2];
+                    $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m5[2], 0, 50) . '...');
                 } elseif (preg_match('/<dd>(.*?)$/i', $line, $m6)) {
                     $this->items[$i]['note'] = str_replace('<br>', "\n", $m6[1]);
                     $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m6[1], 0, 50) . '...');
