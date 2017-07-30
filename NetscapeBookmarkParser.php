@@ -115,7 +115,8 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                 // a header is matched:
                 // - links may be grouped in a (sub-)folder
                 // - append the header's content to the folder tags
-                $tag = strtolower($m1[1]);
+                $tag = $this->sanitizeTagString($m1[1]);
+
                 $folderTags[] = $tag;
                 $this->logger->debug('[#' . $line_no . '] Header found: ' . $tag);
                 continue;
@@ -165,10 +166,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                 }
 
                 if (preg_match('/(tags?|labels?|folders?)="(.*?)"/i', $line, $m7)) {
-                    $tags = array_merge(
-                        $tags,
-                        explode(' ', strtr($m7[2], ',', ' '))
-                    );
+                    $tags = array_merge($tags, explode(' ', strtr($m7[2], ',', ' ')));
                 }
                 $this->items[$i]['tags'] = implode(' ', $tags);
                 $this->logger->debug('[#' . $line_no . '] Tag list: '. $this->items[$i]['tags']);
@@ -294,6 +292,41 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         $sanitized = preg_replace('@\n<DD@i', '<DD', $sanitized);
 
         return $sanitized;
+    }
+
+    /**
+     * Sanitizes a space-separated list of tags
+     *
+     * This removes:
+     * - duplicate whitespace
+     * - leading punctuation
+     * - undesired characters
+     *
+     * @param string $tagString Space-separated list of tags
+     *
+     * @return string Sanitized space-separated list of tags
+     */
+    public static function sanitizeTagString($tagString)
+    {
+        $tags = explode(' ', strtolower($tagString));
+
+        foreach ($tags as $key => &$value) {
+            if (ctype_alnum($value)) {
+                continue;
+            }
+
+            // trim leading punctuation
+            $value = preg_replace('/^[[:punct:]]/', '', $value);
+
+            // trim all but alphanumeric characters, underscores and non-leading dashes
+            $value = preg_replace('/[^\p{L}\p{N}-_]++/u', '', $value);
+
+            if ($value == '') {
+                unset($tags[$key]);
+            }
+        }
+
+        return implode(' ', $tags);
     }
 
     /**

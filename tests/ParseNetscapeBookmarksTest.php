@@ -335,4 +335,30 @@ class ParseNetscapeBookmarksTest extends \PHPUnit_Framework_TestCase
             $bkm[0]['tags']
         );
     }
+
+    /**
+     * Sanitize tags derived from bookmark folder names
+     */
+    public function testSanitizeFolderTagString()
+    {
+        $this->assertEquals('', $this->parser->sanitizeTagString(''));
+
+        $this->assertEquals(
+            'hello',
+            $this->parser->sanitizeTagString('-hello')
+        );
+        $this->assertEquals(
+            'hello',
+            $this->parser->sanitizeTagString('_hello')
+        );
+
+        $this->assertEquals(
+            'hello world',
+            $this->parser->sanitizeTagString('-hello$, WOrld')
+        );
+        $this->assertEquals(
+            'hello world',
+            $this->parser->sanitizeTagString('-Hello$ - WOrlD!')
+        );
+    }
 }
