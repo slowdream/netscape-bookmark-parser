@@ -1,5 +1,5 @@
 # netscape-bookmark-parser
-[![](https://img.shields.io/travis/shaarli/netscape-bookmark-parser.svg?style=flat-square&label=master)](https://travis-ci.org/shaarli/netscape-bookmark-parser)
+[![](https://img.shields.io/travis/shaarli/netscape-bookmark-parser/master.svg?style=flat-square&label=master)](https://travis-ci.org/shaarli/netscape-bookmark-parser)
 [![](https://img.shields.io/github/release/shaarli/netscape-bookmark-parser.svg?style=flat-square)](https://github.com/shaarli/netscape-bookmark-parser/releases/latest/)
 [![license](https://img.shields.io/github/license/shaarli/netscape-bookmark-parser.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
