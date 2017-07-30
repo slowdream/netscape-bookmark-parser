@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v2.0.3](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v2.0.3) - UNPUBLISHED
+## [v2.0.3](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v2.0.3) - 2017-07-30
 ### Changed
 - Update nested folder name parsing to sanitize resulting tags
 
