@@ -286,6 +286,16 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
             $sanitized
         );
 
+        // convert multiline descriptions inside <A> tags to one-line descriptions
+        // line feeds are converted to <br>
+        $sanitized = preg_replace_callback(
+            '@<A(.*?)</A>@mis',
+            function($match) {
+                return '<A'.str_replace("\n", '<br>', trim($match[1])).'</A>';
+            },
+            $sanitized
+        );
+
         // concatenate all information related to the same entry on the same line
         // e.g. <A HREF="...">My Link</A><DD>List<br>- item1<br>- item2
         $sanitized = preg_replace('@\n<br>@mis', "<br>", $sanitized);
