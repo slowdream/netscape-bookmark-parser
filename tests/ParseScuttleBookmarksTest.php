@@ -18,7 +18,7 @@ class ParseScuttleBookmarksTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Parse bookmarks as exported by Delicious
+     * Parse bookmarks as exported by Scuttle
      */
     public function testParse()
     {
@@ -84,6 +84,33 @@ class ParseScuttleBookmarksTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'http://unterm.un.org/dgaacs/gts_term.nsf',
             $bkm[3]['uri']
+        );
+    }
+
+    /**
+     * Parse bookmarks as exported by Scuttle
+     */
+    public function testParseWithNewLine()
+    {
+        $parser = new NetscapeBookmarkParser();
+        $bkm = $parser->parseFile('tests/input/scuttle_new_line.htm');
+        $this->assertEquals(1, sizeof($bkm));
+
+        $this->assertEquals(
+             'The best in funk, soul, jazz and rare groove vinyl'. '<br>'
+            .'I have been writing about music in various forms (zines, newspapers, e-zines, blogs) since the mid-80’s. '
+            .'The Funky16Corners blog started in November of 2004 to focus on funk and soul vinyl. '
+            .'Since mid-2006, in addition to individual MP3 tracks, I have been posting mixes '
+            .'under the title Funky16Corners radio. Most MP3s and mixes will be available for a few weeks.',
+            $bkm[0]['note']
+        );
+        $this->assertEquals('0', $bkm[0]['pub']);
+        $this->assertEquals('funk musik blog', $bkm[0]['tags']);
+        $this->assertEquals('1491107880', $bkm[0]['time']);
+        $this->assertEquals('Funky16Corners', $bkm[0]['title']);
+        $this->assertEquals(
+            'http://funky16corners.com',
+            $bkm[0]['uri']
         );
     }
 }
