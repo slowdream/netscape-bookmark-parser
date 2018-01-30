@@ -262,7 +262,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         $sanitized = $bookmarkString;
 
         // trim comments
-        $sanitized = preg_replace('@<!--.*-->@mis', '', $sanitized);
+        $sanitized = preg_replace('@<!--.*?-->@mis', '', $sanitized);
 
         // keep one XML element per line to prepare for linear parsing
         $sanitized = preg_replace('@>(\s*?)<@mis', ">\n<", $sanitized);
@@ -279,9 +279,9 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         // convert multiline descriptions to one-line descriptions
         // line feeds are converted to <br>
         $sanitized = preg_replace_callback(
-            '@<DD>(.*?)<@mis',
+            '@<DD>(.*?)(</?(:?DT|DD|DL))@mis',
             function($match) {
-                return '<DD>'.str_replace("\n", '<br>', trim($match[1])).PHP_EOL.'<';
+                return '<DD>'.str_replace("\n", '<br>', trim($match[1])).PHP_EOL. $match[2];
             },
             $sanitized
         );
