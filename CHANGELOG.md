@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [v2.0.5](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v2.0.5) - 2018-01-30
+## Fixed
+- Fix scuttle description on multiple lines
+- Improve sanitizing regexp, preventing trimming actual content
+
+
 ## [v2.0.4](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v2.0.4) - 2017-07-30
 ### Changed
 - Pin Travis builds to `precise` to ensure PHP 5.3 compatibility
