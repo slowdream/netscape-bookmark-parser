@@ -16,7 +16,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     protected $defaultTags;
     protected $defaultPub;
     protected $normalizeDates;
-    protected $dateDeltaYears;
+    protected $dateRange;
     protected $items;
 
     /**
@@ -37,8 +37,8 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      *                               - '0' => private)
      * @param string $logDir         Log directory
      * @param bool   $normalizeDates Whether parsed dates are expected to fall within
-     *                               a given time interval
-     * @param int    $dateDeltaYears Delta used to compute the "acceptable" date interval
+     *                               a given date/time interval
+     * @param string $dateRange      Delta used to compute the "acceptable" date/time interval
      */
     public function __construct(
         $keepNestedTags=true,
@@ -46,7 +46,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         $defaultPub='0',
         $logDir=null,
         $normalizeDates=true,
-        $dateDeltaYears=30
+        $dateRange='30 years'
     )
     {
         if ($keepNestedTags) {
@@ -69,7 +69,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         ));
 
         $this->normalizeDates = $normalizeDates;
-        $this->dateDeltaYears = $dateDeltaYears;
+        $this->dateRange = $dateRange;
     }
 
     /**
@@ -253,11 +253,8 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      * @return string Unix timestamp in seconds, within the expected range
      */
     public function normalizeDate($epoch) {
-        $now = new \DateTime();
-        $range = new \DateInterval('P'.$this->dateDeltaYears.'Y');
-        $maxDate = $now->add($range);
-
         $date = new \DateTime('@'.$epoch);
+        $maxDate = new \DateTime('+'.$this->dateRange);
 
         for ($i = 1; $date > $maxDate; $i++) {
             // trim the provided date until it falls within the expected range
