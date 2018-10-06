@@ -15,6 +15,8 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     protected $keepNestedTags;
     protected $defaultTags;
     protected $defaultPub;
+    protected $normalizeDates;
+    protected $dateRange;
     protected $items;
 
     /**
@@ -34,12 +36,17 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      *                               - '1' => public
      *                               - '0' => private)
      * @param string $logDir         Log directory
+     * @param bool   $normalizeDates Whether parsed dates are expected to fall within
+     *                               a given date/time interval
+     * @param string $dateRange      Delta used to compute the "acceptable" date/time interval
      */
     public function __construct(
         $keepNestedTags=true,
         $defaultTags=array(),
         $defaultPub='0',
-        $logDir=null
+        $logDir=null,
+        $normalizeDates=true,
+        $dateRange='30 years'
     )
     {
         if ($keepNestedTags) {
@@ -60,6 +67,9 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                 'extension' => 'log',
             )
         ));
+
+        $this->normalizeDates = $normalizeDates;
+        $this->dateRange = $dateRange;
     }
 
     /**
@@ -206,18 +216,54 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      * @return int Unix timestamp corresponding to a successfully parsed date,
      *             else current date and time
      */
-    public static function parseDate($date)
+    public function parseDate($date)
     {
         if (strtotime('@'.$date)) {
             // Unix timestamp
+            if ($this->normalizeDates) {
+                $date = $this->normalizeDate($date);
+            }
             return strtotime('@'.$date);
         } else if (strtotime($date)) {
             // attempt to parse a known compound date/time format
             return strtotime($date);
         }
         // current date & time
-        return time();
+        return $time;
     }
+
+    /**
+     * Normalizes a date by supposing it is comprised in a given range
+     *
+     * Although most bookmarking services return dates formatted as a Unix epoch
+     * (seconds elapsed since 1970-01-01 00:00:00) or human-readable strings,
+     * some services return microtime epochs (microseconds elapsed since
+     * 1970-01-01 00:00:00.000000) WITHOUT using a delimiter for the microseconds
+     * part...
+     *
+     * This is likely to raise issues in the distant future!
+     *
+     * @see https://stackoverflow.com/questions/33691428/datetime-with-microseconds
+     * @see https://stackoverflow.com/questions/23929145/how-to-test-if-a-given-time-stamp-is-in-seconds-or-milliseconds
+     * @see https://stackoverflow.com/questions/539900/google-bookmark-export-date-format
+     * @see https://www.wired.com/2010/11/1110mars-climate-observer-report/
+     *
+     * @param string $epoch     Unix timestamp to normalize
+     *
+     * @return string Unix timestamp in seconds, within the expected range
+     */
+    public function normalizeDate($epoch) {
+        $date = new \DateTime('@'.$epoch);
+        $maxDate = new \DateTime('+'.$this->dateRange);
+
+        for ($i = 1; $date > $maxDate; $i++) {
+            // trim the provided date until it falls within the expected range
+            $date = new \DateTime('@'.substr($epoch, 0, strlen($epoch) - $i));
+        }
+
+        return $date->getTimestamp();
+    }
+
 
     /**
      * Parses the value of a supposedly boolean attribute
