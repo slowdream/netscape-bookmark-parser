@@ -375,7 +375,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
             $value = preg_replace('/^[[:punct:]]/', '', $value);
 
             // trim all but alphanumeric characters, underscores and non-leading dashes
-            $value = preg_replace('/[^\p{L}\p{N}-_]++/u', '', $value);
+            $value = preg_replace('/[^\p{L}\p{N}\-_]++/u', '', $value);
 
             if ($value == '') {
                 unset($tags[$key]);
