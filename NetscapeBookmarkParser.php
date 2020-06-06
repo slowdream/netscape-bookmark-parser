@@ -229,8 +229,9 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
             // attempt to parse a known compound date/time format
             return strtotime($date);
         }
+
         // current date & time
-        return $time;
+        return time();
     }
 
     /**

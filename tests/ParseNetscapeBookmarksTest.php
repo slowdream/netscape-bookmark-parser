@@ -251,6 +251,23 @@ class ParseNetscapeBookmarksTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Parse invalid date
+     */
+    public function testParseInvalidDates()
+    {
+        // Just to make sure that even if the CI is slow, we're fine.
+        $range = [time() - 5, time() + 5];
+
+        $date = $this->parser->parseDate('0');
+        $this->assertGreaterThanOrEqual($range[0], $date);
+        $this->assertLessThan($range[1], $date);
+
+        $date = $this->parser->parseDate('not a date');
+        $this->assertGreaterThanOrEqual($range[0], $date);
+        $this->assertLessThan($range[1], $date);
+    }
+
+    /**
      * Leave links with no/empty tag as-is
      */
     public function testEmptyDefaultTag()
