@@ -17,7 +17,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     protected $defaultPub;
     protected $normalizeDates;
     protected $dateRange;
-    protected $items;
+    protected $items = [];
 
     /**
      * @var LoggerInterface instance.
@@ -200,6 +200,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                 $i++;
             }
         }
+
         ksort($this->items);
         $this->logger->info('File parsing ended');
         return $this->items;
