@@ -60,7 +60,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         $this->defaultPub = $defaultPub;
 
         $this->setLogger(new Logger(
-            $logDir == null ? __DIR__ . '/logs/' : $logDir,
+            $logDir == null ? 'logs/' : $logDir,
             LogLevel::INFO,
             array(
                 'prefix' => 'import.',
