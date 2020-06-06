@@ -148,7 +148,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                     $this->logger->debug('[#' . $line_no . '] Empty URL');
                 }
 
-                if (preg_match('/<a.*>(.*?)<\/a>/i', $line, $m4)) {
+                if (preg_match('/<a.*?[^br]>(.*?)<\/a>/i', $line, $m4)) {
                     $this->items[$i]['title'] = $m4[1];
                     $this->logger->debug('[#' . $line_no . '] Title found: ' . $m4[1]);
                 } else {
@@ -337,7 +337,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         $sanitized = preg_replace_callback(
             '@<A(.*?)</A>@mis',
             function($match) {
-                return '<A'.str_replace("\n", '<br>', trim($match[1])).'</A>';
+                return '<A '.str_replace("\n", '<br>', trim($match[1])).'</A>';
             },
             $sanitized
         );

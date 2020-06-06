@@ -361,4 +361,30 @@ class ParseNetscapeBookmarksTest extends \PHPUnit_Framework_TestCase
             $this->parser->sanitizeTagString('-Hello$ - WOrlD!')
         );
     }
+
+    /**
+     * Parse a extended Netscape file from Shaarli
+     */
+    public function testParseExtended()
+    {
+        $bkm = $this->parser->parseFile('tests/input/netscape_extended.htm');
+
+        $this->assertEquals(1, sizeof($bkm));
+
+        $description = 'For 10 years, a rogue fishing vessel and its crew plundered the world’s ' .
+                       'oceans, escaping repeated attempts of capture. Then a dramatic pursuit ' .
+                       'finally netted the one that got away.' . PHP_EOL;
+        $description .= '<A href="http://localhost.localdomain:8083/Shaarli/?JVvqCA">' . PHP_EOL;
+        $description .= '<img src="http://localhost.localdomain:8083/Shaarli/cache/thumb/290ccda0deea6083ee613d358446103e/c975558ad43acdbd982ffafd8c01163d6c9ec5ca125901.jpg"/>' . PHP_EOL;
+        $description .= '</A>';
+
+        $this->assertEquals(
+            'The hunt for the fish pirates who exploit the sea - BBC Future',
+            $bkm[0]['title']
+        );
+        $this->assertEquals(0, $bkm[0]['pub']);
+        $this->assertEquals('story oceans', $bkm[0]['tags']);
+        $this->assertEquals('1591451445', $bkm[0]['time']);
+        $this->assertEquals($description, $bkm[0]['note']);
+    }
 }
