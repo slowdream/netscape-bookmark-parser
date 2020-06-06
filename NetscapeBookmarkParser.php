@@ -319,15 +319,15 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         // trim whitespace
         $sanitized = trim($sanitized);
 
-        // trim carriage returns, replace tabs by a single space
-        $sanitized = str_replace(array("\r", "\t"), array('',' '), $sanitized);
+        // trim carriage returns
+        $sanitized = str_replace("\r", '', $sanitized);
 
         // convert multiline descriptions to one-line descriptions
         // line feeds are converted to <br>
         $sanitized = preg_replace_callback(
             '@<DD>(.*?)(</?(:?DT|DD|DL))@mis',
             function($match) {
-                return '<DD>'.str_replace("\n", '<br>', trim($match[1])).PHP_EOL. $match[2];
+        		return '<DD>'.str_replace("\n", '<br>', trim($match[1])).PHP_EOL. $match[2];
             },
             $sanitized
         );
