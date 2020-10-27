@@ -5,12 +5,12 @@ namespace Shaarli\NetscapeBookmarkParser;
 /**
  * Ensure that trying to import an empty file is handled properly.
  */
-class ParseEmptyFileTest extends \PHPUnit_Framework_TestCase
+class ParseEmptyFileTest extends TestCase
 {
     /**
      * Delete log file.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         @unlink(LoggerTestsUtils::getLogFile());
     }

@@ -10,7 +10,7 @@ use Psr\Log\LogLevel;
  *
  * Make sure that the log file is correctly generated.
  */
-class ImportLoggerTest extends \PHPUnit_Framework_TestCase
+class ImportLoggerTest extends TestCase
 {
     /**
      * @var NetscapeBookmarkParser instance
@@ -20,7 +20,7 @@ class ImportLoggerTest extends \PHPUnit_Framework_TestCase
     /**
      * Initialize test resources
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->parser = new NetscapeBookmarkParser();
     }
@@ -28,7 +28,7 @@ class ImportLoggerTest extends \PHPUnit_Framework_TestCase
     /**
      * Delete log file.
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         @unlink(LoggerTestsUtils::getLogFile());
         @unlink(LoggerTestsUtils::getLogFile('tmp'));
@@ -43,8 +43,8 @@ class ImportLoggerTest extends \PHPUnit_Framework_TestCase
         $this->parser->parseFile('tests/input/shaarli.htm');
         $this->assertFileExists(LoggerTestsUtils::getLogFile());
         $content = file_get_contents(LoggerTestsUtils::getLogFile());
-        $this->assertContains('[info]', $content);
-        $this->assertNotContains('[debug]', $content);
+        $this->assertContainsPolyfill('[info]', $content);
+        $this->assertNotContainsPolyfill('[debug]', $content);
     }
 
     /**
@@ -64,8 +64,8 @@ class ImportLoggerTest extends \PHPUnit_Framework_TestCase
         $this->parser->parseFile('tests/input/shaarli.htm');
         $this->assertFileExists(LoggerTestsUtils::getLogFile());
         $content = file_get_contents(LoggerTestsUtils::getLogFile());
-        $this->assertContains('[info]', $content);
-        $this->assertContains('[debug]', $content);
+        $this->assertContainsPolyfill('[info]', $content);
+        $this->assertContainsPolyfill('[debug]', $content);
     }
 
     /**
