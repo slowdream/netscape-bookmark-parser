@@ -2,12 +2,12 @@
 
 namespace Shaarli\NetscapeBookmarkParser;
 
-class ParseShaarliWithTabsAndSpacesTest extends \PHPUnit_Framework_TestCase
+class ParseShaarliWithTabsAndSpacesTest extends TestCase
 {
     /**
      * Delete log file.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         @unlink(LoggerTestsUtils::getLogFile());
     }
