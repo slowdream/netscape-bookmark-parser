@@ -7,7 +7,7 @@ namespace Shaarli\NetscapeBookmarkParser;
  *
  * @see https://github.com/shaarli/Shaarli
  */
-class ParseShaarliBookmarksTest extends \PHPUnit\Framework\TestCase
+class ParseShaarliBookmarksTest extends TestCase
 {
     protected $parser = null;
 

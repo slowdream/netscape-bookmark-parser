@@ -5,7 +5,7 @@ namespace Shaarli\NetscapeBookmarkParser;
 /**
  * Ensure Safari exports are properly parsed
  */
-class ParseSafariBookmarksTest extends \PHPUnit\Framework\TestCase
+class ParseSafariBookmarksTest extends TestCase
 {
     /**
      * Delete log file.

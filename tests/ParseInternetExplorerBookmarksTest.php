@@ -7,7 +7,7 @@ namespace Shaarli\NetscapeBookmarkParser;
  *
  * The reference data has been dumped with IE 11
  */
-class ParseInternetExplorerBookmarksTest extends \PHPUnit\Framework\TestCase
+class ParseInternetExplorerBookmarksTest extends TestCase
 {
     protected $parser = null;
 

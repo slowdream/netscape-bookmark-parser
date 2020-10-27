@@ -10,7 +10,7 @@ use Psr\Log\LogLevel;
  *
  * Make sure that the log file is correctly generated.
  */
-class ImportLoggerTest extends \PHPUnit\Framework\TestCase
+class ImportLoggerTest extends TestCase
 {
     /**
      * @var NetscapeBookmarkParser instance
@@ -43,8 +43,8 @@ class ImportLoggerTest extends \PHPUnit\Framework\TestCase
         $this->parser->parseFile('tests/input/shaarli.htm');
         $this->assertFileExists(LoggerTestsUtils::getLogFile());
         $content = file_get_contents(LoggerTestsUtils::getLogFile());
-        $this->assertContains('[info]', $content);
-        $this->assertNotContains('[debug]', $content);
+        $this->assertContainsPolyfill('[info]', $content);
+        $this->assertNotContainsPolyfill('[debug]', $content);
     }
 
     /**
@@ -64,8 +64,8 @@ class ImportLoggerTest extends \PHPUnit\Framework\TestCase
         $this->parser->parseFile('tests/input/shaarli.htm');
         $this->assertFileExists(LoggerTestsUtils::getLogFile());
         $content = file_get_contents(LoggerTestsUtils::getLogFile());
-        $this->assertContains('[info]', $content);
-        $this->assertContains('[debug]', $content);
+        $this->assertContainsPolyfill('[info]', $content);
+        $this->assertContainsPolyfill('[debug]', $content);
     }
 
     /**

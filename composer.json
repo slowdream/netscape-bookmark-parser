@@ -25,10 +25,10 @@
         }
     },
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "katzgrau/klogger": "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0"
+        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
     }
 }

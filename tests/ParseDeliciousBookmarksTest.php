@@ -7,7 +7,7 @@ namespace Shaarli\NetscapeBookmarkParser;
  *
  * @see http://delicious.com/
  */
-class ParseDeliciousBookmarksTest extends \PHPUnit\Framework\TestCase
+class ParseDeliciousBookmarksTest extends TestCase
 {
     /**
      * Delete log file.

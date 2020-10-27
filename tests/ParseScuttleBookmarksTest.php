@@ -7,7 +7,7 @@ namespace Shaarli\NetscapeBookmarkParser;
  *
  * @see https://sourceforge.net/projects/scuttle/
  */
-class ParseScuttleBookmarksTest extends \PHPUnit\Framework\TestCase
+class ParseScuttleBookmarksTest extends TestCase
 {
     /**
      * Delete log file.

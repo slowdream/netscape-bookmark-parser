@@ -7,7 +7,7 @@ namespace Shaarli\NetscapeBookmarkParser;
  *
  * The reference data has been dumped with Chromium 51.0.2704.84
  */
-class ParseChromiumBookmarksTest extends \PHPUnit\Framework\TestCase
+class ParseChromiumBookmarksTest extends TestCase
 {
     /**
      * Delete log file.
