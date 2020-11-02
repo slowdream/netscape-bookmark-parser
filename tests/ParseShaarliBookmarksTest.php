@@ -45,13 +45,13 @@ class ParseShaarliBookmarksTest extends TestCase
         // Shaarli note (permalink)
         $this->assertEquals(
             "&quot;Is there anything more fabulous than something created"
-           ." through the wonder and miracle of caramelization?&quot;".PHP_EOL
-           .PHP_EOL
-           ."- http://www.davidlebovitz.com/2005/08/long-live-the-k/".PHP_EOL
-           ."- http://www.bonappetit.com/recipe/kouign-amann".PHP_EOL
-           .PHP_EOL
-           ."&quot;It is strictly forbidden to think about diet while"
-           ." you're making a Kouign Amann&quot;",
+            . " through the wonder and miracle of caramelization?&quot;" . PHP_EOL
+            . PHP_EOL
+            . "- http://www.davidlebovitz.com/2005/08/long-live-the-k/" . PHP_EOL
+            . "- http://www.bonappetit.com/recipe/kouign-amann" . PHP_EOL
+            . PHP_EOL
+            . "&quot;It is strictly forbidden to think about diet while"
+            . " you're making a Kouign Amann&quot;",
             $bkm[0]['note']
         );
         $this->assertEquals(
@@ -69,7 +69,7 @@ class ParseShaarliBookmarksTest extends TestCase
         $this->assertEquals('1459371358', $bkm[1]['time']);
         $this->assertEquals(
             'http://nautil.us/blog/the-most-important-object-'
-           .'in-computer-graphics-history-is-this-teapot',
+            . 'in-computer-graphics-history-is-this-teapot',
             $bkm[1]['uri']
         );
 
@@ -84,19 +84,19 @@ class ParseShaarliBookmarksTest extends TestCase
         $this->assertEquals('1459371140', $bkm[3]['time']);
         $this->assertEquals(
             'http://storml.deviantart.com/art/Mine-Turtle-Instructions-302477240'
-           .'?q=in%3Ascraps%20sort%3Atime%20gallery%3Astorml&amp;qo=1',
+            . '?q=in%3Ascraps%20sort%3Atime%20gallery%3Astorml&amp;qo=1',
             $bkm[3]['uri']
         );
 
         $this->assertEquals(
             'Welcome to Shaarli! This is your first public bookmark.'
-           .' To edit or delete me, you must first login.'.PHP_EOL
-           .PHP_EOL
-           .'To learn how to use Shaarli, consult the link &quot;Help/documentation&quot;'
-           .' at the bottom of this page.'.PHP_EOL
-           .PHP_EOL
-           .'You use the community supported version of the original Shaarli project,'
-           .' by Sebastien Sauvage.',
+            . ' To edit or delete me, you must first login.' . PHP_EOL
+            . PHP_EOL
+            . 'To learn how to use Shaarli, consult the link &quot;Help/documentation&quot;'
+            . ' at the bottom of this page.' . PHP_EOL
+            . PHP_EOL
+            . 'You use the community supported version of the original Shaarli project,'
+            . ' by Sebastien Sauvage.',
             $bkm[4]['note']
         );
         $this->assertEquals('1', $bkm[4]['pub']);
@@ -110,7 +110,7 @@ class ParseShaarliBookmarksTest extends TestCase
         $this->assertEquals('1459370913', $bkm[5]['time']);
         $this->assertEquals(
             'http://sebsauvage.net/paste/?8434b27936c09649#'
-            .'bR7XsXhoTiLcqCpQbmOpBi3rq2zzQUC5hBI7ZT1O3x8=',
+            . 'bR7XsXhoTiLcqCpQbmOpBi3rq2zzQUC5hBI7ZT1O3x8=',
             $bkm[5]['uri']
         );
     }
@@ -125,19 +125,19 @@ class ParseShaarliBookmarksTest extends TestCase
 
         // Markdown code
         $this->assertEquals(
-            'PHP stuff:'.PHP_EOL
-             .PHP_EOL
-             .'    &lt;?php'.PHP_EOL
-             .'    phpinfo();'.PHP_EOL
-             .'    ?&gt;'.PHP_EOL
-             .PHP_EOL
-             .'Python stuff:'.PHP_EOL
-             .PHP_EOL
-             .'    import logging'.PHP_EOL
-             .'    import os'.PHP_EOL
-             .PHP_EOL
-             ."    if __name__ == '__main__':".PHP_EOL
-             .'        logging.info(&quot;Current directory: %s&quot;, os.getcwd())',
+            'PHP stuff:' . PHP_EOL
+             . PHP_EOL
+             . '    &lt;?php' . PHP_EOL
+             . '    phpinfo();' . PHP_EOL
+             . '    ?&gt;' . PHP_EOL
+             . PHP_EOL
+             . 'Python stuff:' . PHP_EOL
+             . PHP_EOL
+             . '    import logging' . PHP_EOL
+             . '    import os' . PHP_EOL
+             . PHP_EOL
+             . "    if __name__ == '__main__':" . PHP_EOL
+             . '        logging.info(&quot;Current directory: %s&quot;, os.getcwd())',
             $bkm[0]['note']
         );
         $this->assertEquals('1', $bkm[0]['pub']);
@@ -146,17 +146,17 @@ class ParseShaarliBookmarksTest extends TestCase
 
         // Markdown lists
         $this->assertEquals(
-            'Standard:'.PHP_EOL
-             .'* item1'.PHP_EOL
-             .'* item2'.PHP_EOL
-             .'* item3'.PHP_EOL
-             .PHP_EOL
-             .'Nested:'.PHP_EOL
-             .'- item1'.PHP_EOL
-             .'    - item1.1'.PHP_EOL
-             .'    - item1.2'.PHP_EOL
-             .'- item2',
-             $bkm[1]['note']
+            'Standard:' . PHP_EOL
+             . '* item1' . PHP_EOL
+             . '* item2' . PHP_EOL
+             . '* item3' . PHP_EOL
+             . PHP_EOL
+             . 'Nested:' . PHP_EOL
+             . '- item1' . PHP_EOL
+             . '    - item1.1' . PHP_EOL
+             . '    - item1.2' . PHP_EOL
+             . '- item2',
+            $bkm[1]['note']
         );
         $this->assertEquals('1', $bkm[1]['pub']);
         $this->assertEquals('1463262338', $bkm[1]['time']);
@@ -164,26 +164,26 @@ class ParseShaarliBookmarksTest extends TestCase
 
         // Markdown headers
         $this->assertEquals(
-            'A First Level Header'.PHP_EOL
-           .'===================='.PHP_EOL
-           .PHP_EOL
-           .'A Second Level Header'.PHP_EOL
-           .'---------------------'.PHP_EOL
-           .PHP_EOL
-           .'Now is the time for all good men to come to'.PHP_EOL
-           .'the aid of their country. This is just a'.PHP_EOL
-           .'regular paragraph.'.PHP_EOL
-           .PHP_EOL
-           .'The quick brown fox jumped over the lazy'.PHP_EOL
-           .'dog\'s back.'.PHP_EOL
-           .PHP_EOL
-           .'### Header 3'.PHP_EOL
-           .PHP_EOL
-           .'&gt; This is a blockquote.'.PHP_EOL
-           .'&gt; '.PHP_EOL
-           .'&gt; This is the second paragraph in the blockquote.'.PHP_EOL
-           .'&gt;'.PHP_EOL
-           .'&gt; ## This is an H2 in a blockquote',
+            'A First Level Header' . PHP_EOL
+            . '====================' . PHP_EOL
+            . PHP_EOL
+            . 'A Second Level Header' . PHP_EOL
+            . '---------------------' . PHP_EOL
+            . PHP_EOL
+            . 'Now is the time for all good men to come to' . PHP_EOL
+            . 'the aid of their country. This is just a' . PHP_EOL
+            . 'regular paragraph.' . PHP_EOL
+            . PHP_EOL
+            . 'The quick brown fox jumped over the lazy' . PHP_EOL
+            . 'dog\'s back.' . PHP_EOL
+            . PHP_EOL
+            . '### Header 3' . PHP_EOL
+            . PHP_EOL
+            . '&gt; This is a blockquote.' . PHP_EOL
+            . '&gt; ' . PHP_EOL
+            . '&gt; This is the second paragraph in the blockquote.' . PHP_EOL
+            . '&gt;' . PHP_EOL
+            . '&gt; ## This is an H2 in a blockquote',
             $bkm[2]['note']
         );
         $this->assertEquals('1', $bkm[2]['pub']);
@@ -213,9 +213,9 @@ class ParseShaarliBookmarksTest extends TestCase
         $this->assertEquals(
             array(
                 'uri' => 'https://www.addedbytes.com/articles/for-beginners/'
-                         .'url-rewriting-for-beginners/',
+                         . 'url-rewriting-for-beginners/',
                 'title' => 'URL Rewriting for Beginners - '
-                           .'Web Development in Brighton - Added Bytes',
+                           . 'Web Development in Brighton - Added Bytes',
                 'note' => '',
                 'tags' => ['apache'],
                 'time' => 1469950052,

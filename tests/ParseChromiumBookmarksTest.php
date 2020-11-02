@@ -73,13 +73,13 @@ class ParseChromiumBookmarksTest extends TestCase
         $this->assertEquals('1466009639', $bkm[5]['time']);
         $this->assertEquals(
             'Are there any worse sorting algorithms than Bogosort'
-           .' (a.k.a Monkey Sort)? - Stack Overflow',
+            . ' (a.k.a Monkey Sort)? - Stack Overflow',
             $bkm[5]['title']
         );
         $this->assertEquals(
             'http://stackoverflow.com/questions/2609857/'
-           .'are-there-any-worse-sorting-algorithms-than-bogosort'
-           .'-a-k-a-monkey-sort',
+            . 'are-there-any-worse-sorting-algorithms-than-bogosort'
+            . '-a-k-a-monkey-sort',
             $bkm[5]['uri']
         );
 
@@ -89,7 +89,7 @@ class ParseChromiumBookmarksTest extends TestCase
         $this->assertEquals('1466009667', $bkm[6]['time']);
         $this->assertEquals(
             'GitHub - lhartikk/ArnoldC: Arnold Schwarzenegger based'
-           .' programming language',
+            . ' programming language',
             $bkm[6]['title']
         );
         $this->assertEquals(
@@ -117,7 +117,7 @@ class ParseChromiumBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://lotrproject.com/blog/2013/02/08/'
-           .'timeline-of-the-elves-in-tolkiens-works/',
+            . 'timeline-of-the-elves-in-tolkiens-works/',
             $bkm[8]['uri']
         );
     }
@@ -165,7 +165,7 @@ class ParseChromiumBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://lotrproject.com/blog/2013/02/08/timeline-of-the-elves'
-           .'-in-tolkiens-works/',
+            . '-in-tolkiens-works/',
             $bkm[3]['uri']
         );
 
@@ -185,13 +185,13 @@ class ParseChromiumBookmarksTest extends TestCase
         $this->assertEquals('1466013093', $bkm[5]['time']);
         $this->assertEquals(
             'php - Best practices to test protected methods with PHPUnit'
-           .' - Stack Overflow',
+            . ' - Stack Overflow',
             $bkm[5]['title']
         );
         $this->assertEquals(
             'http://stackoverflow.com/questions/249664/'
-           .'best-practices-to-test-protected-methods-with-phpunit/'
-           .'2798203#2798203',
+            . 'best-practices-to-test-protected-methods-with-phpunit/'
+            . '2798203#2798203',
             $bkm[5]['uri']
         );
 
@@ -234,7 +234,7 @@ class ParseChromiumBookmarksTest extends TestCase
         $this->assertEquals('1466011676', $bkm[9]['time']);
         $this->assertEquals(
             'GitHub - lhartikk/ArnoldC: Arnold Schwarzenegger based'
-           .' programming language',
+            . ' programming language',
             $bkm[9]['title']
         );
         $this->assertEquals(
@@ -248,13 +248,13 @@ class ParseChromiumBookmarksTest extends TestCase
         $this->assertEquals('1466011763', $bkm[10]['time']);
         $this->assertEquals(
             'Are there any worse sorting algorithms than Bogosort'
-           .' (a.k.a Monkey Sort)? - Stack Overflow',
+            . ' (a.k.a Monkey Sort)? - Stack Overflow',
             $bkm[10]['title']
         );
         $this->assertEquals(
             'http://stackoverflow.com/questions/2609857/'
-           .'are-there-any-worse-sorting-algorithms-than-bogosort'
-           .'-a-k-a-monkey-sort',
+            . 'are-there-any-worse-sorting-algorithms-than-bogosort'
+            . '-a-k-a-monkey-sort',
             $bkm[10]['uri']
         );
 
@@ -308,8 +308,8 @@ class ParseChromiumBookmarksTest extends TestCase
         $this->assertEquals('1466012934', $bkm[16]['time']);
         $this->assertEquals(
             'GitHub - shaarli/Shaarli:'
-           .' The personal, minimalist, super-fast, database free,'
-           .' bookmarking service - community repo',
+            . ' The personal, minimalist, super-fast, database free,'
+            . ' bookmarking service - community repo',
             $bkm[16]['title']
         );
         $this->assertEquals(

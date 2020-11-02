@@ -18,6 +18,6 @@ class LoggerTestsUtils
     public static function getLogFile($directory = 'logs')
     {
         $logs = glob($directory . '/import*.log');
-        return ! empty ($logs) ? $logs[0] : false;
+        return ! empty($logs) ? $logs[0] : false;
     }
 }

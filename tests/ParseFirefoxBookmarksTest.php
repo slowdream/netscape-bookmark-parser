@@ -39,7 +39,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'place:folder=BOOKMARKS_MENU&folder=UNFILED_BOOKMARKS&folder=TOOLBAR'
-           .'&queryType=1&sort=12&maxResults=10&excludeQueries=1',
+            . '&queryType=1&sort=12&maxResults=10&excludeQueries=1',
             $bkm[0]['uri']
         );
 
@@ -61,7 +61,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'netscape-bookmark-parser - a php script (function) to parse netscape'
-           .' format bookmark files',
+            . ' format bookmark files',
             $bkm[2]['note']
         );
         $this->assertEquals(
@@ -78,7 +78,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'kafene/netscape-bookmark-parser: a php script (function) to parse'
-           .' netscape format bookmark files',
+            . ' netscape format bookmark files',
             $bkm[2]['title']
         );
         $this->assertEquals(
@@ -117,7 +117,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'Survive The Deep End: PHP Security — Survive The Deep End:'
-           .' PHP Security :: v1.0a1',
+            . ' PHP Security :: v1.0a1',
             $bkm[4]['title']
         );
         $this->assertEquals(
@@ -152,8 +152,8 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'If running a Meetup feels like a full-time job, you&#39;re probably'
-           .' doing it wrong. Volunteering is important and you can make it work'
-           .' with some smart maneuvering.',
+            . ' doing it wrong. Volunteering is important and you can make it work'
+            . ' with some smart maneuvering.',
             $bkm[6]['note']
         );
         $this->assertEquals(
@@ -179,7 +179,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'Let’s play a game. I’ll show you a picture and a couple videos'
-           .'—just watch the first five seconds or so—and you figure out&amp;#8230;',
+            . '—just watch the first five seconds or so—and you figure out&amp;#8230;',
             $bkm[7]['note']
         );
         $this->assertEquals(
@@ -196,12 +196,12 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'The Most Important Object In Computer Graphics History Is This Teapot'
-           .' - Facts So Romantic - Nautilus',
+            . ' - Facts So Romantic - Nautilus',
             $bkm[7]['title']
         );
         $this->assertEquals(
             'http://nautil.us/blog/the-most-important-object-in-computer-graphics'
-           .'-history-is-this-teapot',
+            . '-history-is-this-teapot',
             $bkm[7]['uri']
         );
 
@@ -277,7 +277,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://blog.deadpansincerity.com/2011/05/announcing-pony-mode-a-django'
-            .'-editing-mode-for-emacs/',
+            . '-editing-mode-for-emacs/',
             $bkm[10]['uri']
         );
 
@@ -378,7 +378,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://gaming.stackexchange.com/questions/21261/is-it-dangerous-to-go-extreme'
-           .'-pig-riding-in-a-thunderstorm',
+            . '-pig-riding-in-a-thunderstorm',
             $bkm[14]['uri']
         );
 
@@ -450,14 +450,14 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'Chocolate Consumption, Cognitive Function, and Nobel Laureates'
-           .' - Chocolate consumption cognitive function and nobel laurates'
-           .' (NEJM).pdf',
+            . ' - Chocolate consumption cognitive function and nobel laurates'
+            . ' (NEJM).pdf',
             $bkm[17]['title']
         );
         $this->assertEquals(
             'http://www.biostat.jhsph.edu/courses/bio621/misc/Chocolate%20'
-            .'consumption%20cognitive%20function%20and%20nobel'
-           .'%20laurates%20%28NEJM%29.pdf',
+            . 'consumption%20cognitive%20function%20and%20nobel'
+            . '%20laurates%20%28NEJM%29.pdf',
             $bkm[17]['uri']
         );
 
@@ -513,10 +513,10 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'Opt out of global data surveillance programs like PRISM, XKeyscore'
-           .' and Tempora. Help make mass surveillance of entire populations'
-           .' uneconomical! We all have a right to privacy, which you can exercise'
-           .' today by encrypting your communications and ending your reliance'
-           .' on proprietary services.',
+            . ' and Tempora. Help make mass surveillance of entire populations'
+            . ' uneconomical! We all have a right to privacy, which you can exercise'
+            . ' today by encrypting your communications and ending your reliance'
+            . ' on proprietary services.',
             $bkm[20]['note']
         );
         $this->assertEquals(
@@ -533,7 +533,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'Opt out of global data surveillance programs like PRISM, XKeyscore,'
-           .' and Tempora - PRISM Break - PRISM Break',
+            . ' and Tempora - PRISM Break - PRISM Break',
             $bkm[20]['title']
         );
         $this->assertEquals(
@@ -543,7 +543,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'Fractal Flowchart - Spiked Math Comic - A daily math webcomic'
-            .' meant to entertain and humor the geek in you...',
+            . ' meant to entertain and humor the geek in you...',
             $bkm[21]['note']
         );
         $this->assertEquals(
@@ -622,7 +622,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'place:folder=BOOKMARKS_MENU&folder=UNFILED_BOOKMARKS&folder=TOOLBAR'
-           .'&queryType=1&sort=12&maxResults=10&excludeQueries=1',
+            . '&queryType=1&sort=12&maxResults=10&excludeQueries=1',
             $bkm[0]['uri']
         );
 
@@ -744,7 +744,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'Fractal Flowchart - Spiked Math Comic - A daily math webcomic'
-            .' meant to entertain and humor the geek in you...',
+            . ' meant to entertain and humor the geek in you...',
             $bkm[6]['note']
         );
         $this->assertEquals(
@@ -789,7 +789,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'Let’s play a game. I’ll show you a picture and a couple videos'
-           .'—just watch the first five seconds or so—and you figure out&amp;#8230;',
+            . '—just watch the first five seconds or so—and you figure out&amp;#8230;',
             $bkm[8]['note']
         );
         $this->assertEquals(
@@ -806,12 +806,12 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'The Most Important Object In Computer Graphics History Is This Teapot'
-           .' - Facts So Romantic - Nautilus',
+            . ' - Facts So Romantic - Nautilus',
             $bkm[8]['title']
         );
         $this->assertEquals(
             'http://nautil.us/blog/the-most-important-object-in-computer-graphics'
-           .'-history-is-this-teapot',
+            . '-history-is-this-teapot',
             $bkm[8]['uri']
         );
 
@@ -862,7 +862,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://blog.deadpansincerity.com/2011/05/announcing-pony-mode-a-django'
-            .'-editing-mode-for-emacs/',
+            . '-editing-mode-for-emacs/',
             $bkm[10]['uri']
         );
 
@@ -918,7 +918,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'netscape-bookmark-parser - a php script (function) to parse netscape'
-           .' format bookmark files',
+            . ' format bookmark files',
             $bkm[13]['note']
         );
         $this->assertEquals(
@@ -935,7 +935,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'kafene/netscape-bookmark-parser: a php script (function) to parse'
-           .' netscape format bookmark files',
+            . ' netscape format bookmark files',
             $bkm[13]['title']
         );
         $this->assertEquals(
@@ -955,7 +955,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'Survive The Deep End: PHP Security — Survive The Deep End:'
-           .' PHP Security :: v1.0a1',
+            . ' PHP Security :: v1.0a1',
             $bkm[14]['title']
         );
         $this->assertEquals(
@@ -981,21 +981,21 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'Chocolate Consumption, Cognitive Function, and Nobel Laureates'
-           .' - Chocolate consumption cognitive function and nobel laurates'
-           .' (NEJM).pdf',
+            . ' - Chocolate consumption cognitive function and nobel laurates'
+            . ' (NEJM).pdf',
             $bkm[15]['title']
         );
         $this->assertEquals(
             'http://www.biostat.jhsph.edu/courses/bio621/misc/Chocolate%20'
-            .'consumption%20cognitive%20function%20and%20nobel'
-           .'%20laurates%20%28NEJM%29.pdf',
+            . 'consumption%20cognitive%20function%20and%20nobel'
+            . '%20laurates%20%28NEJM%29.pdf',
             $bkm[15]['uri']
         );
 
         $this->assertEquals(
             'If running a Meetup feels like a full-time job, you&#39;re probably'
-           .' doing it wrong. Volunteering is important and you can make it work'
-           .' with some smart maneuvering.',
+            . ' doing it wrong. Volunteering is important and you can make it work'
+            . ' with some smart maneuvering.',
             $bkm[16]['note']
         );
         $this->assertEquals(
@@ -1096,10 +1096,10 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals(
             'Opt out of global data surveillance programs like PRISM, XKeyscore'
-           .' and Tempora. Help make mass surveillance of entire populations'
-           .' uneconomical! We all have a right to privacy, which you can exercise'
-           .' today by encrypting your communications and ending your reliance'
-           .' on proprietary services.',
+            . ' and Tempora. Help make mass surveillance of entire populations'
+            . ' uneconomical! We all have a right to privacy, which you can exercise'
+            . ' today by encrypting your communications and ending your reliance'
+            . ' on proprietary services.',
             $bkm[20]['note']
         );
         $this->assertEquals(
@@ -1116,7 +1116,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'Opt out of global data surveillance programs like PRISM, XKeyscore,'
-           .' and Tempora - PRISM Break - PRISM Break',
+            . ' and Tempora - PRISM Break - PRISM Break',
             $bkm[20]['title']
         );
         $this->assertEquals(
@@ -1146,7 +1146,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://gaming.stackexchange.com/questions/21261/is-it-dangerous-to-go-extreme'
-           .'-pig-riding-in-a-thunderstorm',
+            . '-pig-riding-in-a-thunderstorm',
             $bkm[21]['uri']
         );
 

@@ -51,7 +51,7 @@ class ParseScuttleBookmarksTest extends TestCase
 
         $this->assertEquals(
             '&quot;Durchsuchen Sie Millionen von SÃ¤tzen, die von anderen'
-            .' Menschen Ã¼bersetzt wurden.&quot;',
+            . ' Menschen Ã¼bersetzt wurden.&quot;',
             $bkm[2]['note']
         );
         $this->assertEquals('0', $bkm[2]['pub']);
@@ -68,10 +68,10 @@ class ParseScuttleBookmarksTest extends TestCase
 
         $this->assertEquals(
             "Database of the United Nation's German Translation Section."
-            ." Every record contains at least one German term and a"
-            ." corresponding term usually in English. Most records also"
-            ." contain a French equivalent, some also a Spanish version."
-            ." Not necessarily official.",
+            . " Every record contains at least one German term and a"
+            . " corresponding term usually in English. Most records also"
+            . " contain a French equivalent, some also a Spanish version."
+            . " Not necessarily official.",
             $bkm[3]['note']
         );
         $this->assertEquals('0', $bkm[3]['pub']);
@@ -97,11 +97,11 @@ class ParseScuttleBookmarksTest extends TestCase
         $this->assertEquals(1, sizeof($bkm));
 
         $this->assertEquals(
-             'The best in funk, soul, jazz and rare groove vinyl'. '<br>'
-            .'I have been writing about music in various forms (zines, newspapers, e-zines, blogs) since the mid-80’s. '
-            .'The Funky16Corners blog started in November of 2004 to focus on funk and soul vinyl. '
-            .'Since mid-2006, in addition to individual MP3 tracks, I have been posting mixes '
-            .'under the title Funky16Corners radio. Most MP3s and mixes will be available for a few weeks.',
+            'The best in funk, soul, jazz and rare groove vinyl' . '<br>'
+            . 'I have been writing about music in various forms (zines, newspapers, e-zines, blogs) since the mid-80’s. '
+            . 'The Funky16Corners blog started in November of 2004 to focus on funk and soul vinyl. '
+            . 'Since mid-2006, in addition to individual MP3 tracks, I have been posting mixes '
+            . 'under the title Funky16Corners radio. Most MP3s and mixes will be available for a few weeks.',
             $bkm[0]['note']
         );
         $this->assertEquals('0', $bkm[0]['pub']);

@@ -83,7 +83,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'https://help.github.com/articles/dealing-with-line-endings/'
-           .'#platform-all',
+            . '#platform-all',
             $bkm[3]['uri']
         );
 
@@ -113,7 +113,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         $this->assertEquals('1466266989', $bkm[6]['time']);
         $this->assertEquals(
             'Fifty Shades of Grey text generator  '
-           .'Parody erotic fiction generated algorithmically.',
+            . 'Parody erotic fiction generated algorithmically.',
             $bkm[6]['title']
         );
         $this->assertEquals('http://www.xwray.com/fiftyshades', $bkm[6]['uri']);
@@ -124,8 +124,8 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         $this->assertEquals('1466267009', $bkm[7]['time']);
         $this->assertEquals(
             'GitHub - originell-django-kittenstorage '
-           .'Django Storage Engine which returns images of kittens '
-           .'if files could not be found.',
+            . 'Django Storage Engine which returns images of kittens '
+            . 'if files could not be found.',
             $bkm[7]['title']
         );
         $this->assertEquals(
@@ -173,7 +173,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         $this->assertEquals('It Never works with cats...', $bkm[11]['title']);
         $this->assertEquals(
             'http://lizclimo.tumblr.com/post/132165201759/'
-           .'bonus-comic-for-national-cat-day',
+            . 'bonus-comic-for-national-cat-day',
             $bkm[11]['uri']
         );
 
@@ -187,7 +187,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://io9.gizmodo.com/learn-to-write-gallifreyan-in-9'
-           .'-simple-steps-506989915',
+            . '-simple-steps-506989915',
             $bkm[12]['uri']
         );
 
@@ -211,7 +211,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         $this->assertEquals('1466269520', $bkm[15]['time']);
         $this->assertEquals(
             'TEDxZurich - Jojo Mayer - Exploring the distance between 0 and 1'
-           .' - YouTube',
+            . ' - YouTube',
             $bkm[15]['title']
         );
         $this->assertEquals(
@@ -239,7 +239,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://jakevdp.github.io/blog/2013/07/10/'
-           .'XKCD-plots-in-matplotlib/',
+            . 'XKCD-plots-in-matplotlib/',
             $bkm[17]['uri']
         );
     }
@@ -265,7 +265,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://lizclimo.tumblr.com/post/132165201759/'
-           .'bonus-comic-for-national-cat-day',
+            . 'bonus-comic-for-national-cat-day',
             $bkm[0]['uri']
         );
 
@@ -301,8 +301,8 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         $this->assertEquals('1466267009', $bkm[3]['time']);
         $this->assertEquals(
             'GitHub - originell-django-kittenstorage'
-           .' Django Storage Engine which returns images of kittens'
-           .' if files could not be found.',
+            . ' Django Storage Engine which returns images of kittens'
+            . ' if files could not be found.',
             $bkm[3]['title']
         );
         $this->assertEquals(
@@ -320,7 +320,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://jakevdp.github.io/blog/2013/07/10/'
-           .'XKCD-plots-in-matplotlib/',
+            . 'XKCD-plots-in-matplotlib/',
             $bkm[4]['uri']
         );
 
@@ -347,7 +347,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'https://help.github.com/articles/dealing-with-line-endings/'
-           .'#platform-all',
+            . '#platform-all',
             $bkm[6]['uri']
         );
 
@@ -409,7 +409,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         $this->assertEquals('1466266989', $bkm[11]['time']);
         $this->assertEquals(
             'Fifty Shades of Grey text generator'
-           .'  Parody erotic fiction generated algorithmically.',
+            . '  Parody erotic fiction generated algorithmically.',
             $bkm[11]['title']
         );
         $this->assertEquals(
@@ -527,7 +527,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         $this->assertEquals('1466269520', $bkm[20]['time']);
         $this->assertEquals(
             'TEDxZurich - Jojo Mayer - Exploring the distance between 0 and 1'
-           .' - YouTube',
+            . ' - YouTube',
             $bkm[20]['title']
         );
         $this->assertEquals(
@@ -597,7 +597,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
         );
         $this->assertEquals(
             'http://io9.gizmodo.com/learn-to-write-gallifreyan-in-9'
-           .'-simple-steps-506989915',
+            . '-simple-steps-506989915',
             $bkm[25]['uri']
         );
 

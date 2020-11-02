@@ -63,23 +63,23 @@ class ParseNetscapeBookmarksTest extends TestCase
 
         // simple list
         $this->assertEquals(
-            'List:'.PHP_EOL.'- item1'.PHP_EOL.'- item2'.PHP_EOL.'- item3',
+            'List:' . PHP_EOL . '- item1' . PHP_EOL . '- item2' . PHP_EOL . '- item3',
             $bkm[0]['note']
         );
 
         // nested lists
         $this->assertEquals(
             'Nested lists:'
-           .PHP_EOL.'- list1'.PHP_EOL.'  - item1.1'.PHP_EOL.'  - item1.2'.PHP_EOL.'  - item1.3'
-           .PHP_EOL.'- list2'.PHP_EOL.'  - item2.1',
+            . PHP_EOL . '- list1' . PHP_EOL . '  - item1.1' . PHP_EOL . '  - item1.2' . PHP_EOL . '  - item1.3'
+            . PHP_EOL . '- list2' . PHP_EOL . '  - item2.1',
             $bkm[1]['note']
         );
 
         // list and paragraphs separated by several newlines
         $this->assertEquals(
-            'List:'.PHP_EOL.'- item1'.PHP_EOL.'- item2'.PHP_EOL
-           .PHP_EOL.'Paragraph number one.'.PHP_EOL
-           .PHP_EOL.'Paragraph'.PHP_EOL.'number'.PHP_EOL.'two.',
+            'List:' . PHP_EOL . '- item1' . PHP_EOL . '- item2' . PHP_EOL
+            . PHP_EOL . 'Paragraph number one.' . PHP_EOL
+            . PHP_EOL . 'Paragraph' . PHP_EOL . 'number' . PHP_EOL . 'two.',
             $bkm[2]['note']
         );
     }

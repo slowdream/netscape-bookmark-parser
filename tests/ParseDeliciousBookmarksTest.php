@@ -28,7 +28,7 @@ class ParseDeliciousBookmarksTest extends TestCase
 
         $this->assertEquals(
             'Export your bookmarks to an HTML file, which can be used as a'
-           .' backup or for importing into another web browser',
+            . ' backup or for importing into another web browser',
             $bkm[0]['note']
         );
         $this->assertEquals('1', $bkm[0]['pub']);
@@ -48,7 +48,7 @@ class ParseDeliciousBookmarksTest extends TestCase
         $this->assertEquals('1428876000', $bkm[3]['time']);
         $this->assertEquals(
             'http://storml.deviantart.com/art/Mine-Turtle-Instructions-'
-           .'302477240?q=in%3Ascraps%20sort%3Atime%20gallery%3Astorml&qo=1',
+            . '302477240?q=in%3Ascraps%20sort%3Atime%20gallery%3Astorml&qo=1',
             $bkm[3]['uri']
         );
 
@@ -94,7 +94,7 @@ class ParseDeliciousBookmarksTest extends TestCase
         $this->assertEquals('Changer le monde - Carnets Web de La Grange', $bkm[1]['title']);
         $this->assertEquals(
             'La juxtaposition des mots propriétés et intellectuel (du monde des idées) '
-           .'est une aberration dans un contexte de l\'échange et de la culture.',
+            . 'est une aberration dans un contexte de l\'échange et de la culture.',
             $bkm[1]['note']
         );
     }

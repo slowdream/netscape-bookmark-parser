@@ -35,8 +35,8 @@ class ParseSafariBookmarksTest extends TestCase
         $this->assertEquals(['github', 'shaarli'], $bkm[1]['tags']);
         $this->assertEquals(
             'GitHub - shaarli/Shaarli:'
-           .' The personal, minimalist, super-fast, database free,'
-           .' bookmarking service - community repo',
+            . ' The personal, minimalist, super-fast, database free,'
+            . ' bookmarking service - community repo',
             $bkm[1]['title']
         );
         $this->assertEquals('https://github.com/shaarli/Shaarli', $bkm[1]['uri']);
