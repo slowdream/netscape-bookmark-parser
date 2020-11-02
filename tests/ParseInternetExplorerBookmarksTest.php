@@ -18,7 +18,7 @@ class ParseInternetExplorerBookmarksTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->parser = new NetscapeBookmarkParser(true, array(), 'error');
+        $this->parser = new NetscapeBookmarkParser(true, [], 'error');
     }
 
     /**

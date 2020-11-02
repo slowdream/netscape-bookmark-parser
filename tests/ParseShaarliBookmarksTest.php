@@ -202,18 +202,18 @@ class ParseShaarliBookmarksTest extends TestCase
         $this->assertEquals(2, sizeof($bkm));
 
         $this->assertEquals(
-            array(
+            [
                 'uri' => 'https://gist.github.com/rodrigomuniz/8408734',
                 'title' => 'A Pen by Rodrigo Muniz.',
                 'note' => 'simple on/off button',
                 'tags' => ['css'],
                 'time' => 1470640652,
                 'pub' => 0
-            ),
+            ],
             $bkm[0]
         );
         $this->assertEquals(
-            array(
+            [
                 'uri' => 'https://www.addedbytes.com/articles/for-beginners/'
                          . 'url-rewriting-for-beginners/',
                 'title' => 'URL Rewriting for Beginners - '
@@ -222,7 +222,7 @@ class ParseShaarliBookmarksTest extends TestCase
                 'tags' => ['apache'],
                 'time' => 1469950052,
                 'pub' => 1
-            ),
+            ],
             $bkm[1]
         );
     }

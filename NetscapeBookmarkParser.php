@@ -63,10 +63,10 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         $this->setLogger(new Logger(
             $logDir == null ? 'logs/' : $logDir,
             LogLevel::INFO,
-            array(
+            [
                 'prefix' => 'import.',
                 'extension' => 'log',
-            )
+            ]
         ));
 
         $this->normalizeDates = $normalizeDates;
@@ -170,7 +170,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                     $this->logger->debug('[#' . $line_no . '] Empty content');
                 }
 
-                $tags = array();
+                $tags = [];
                 if ($this->defaultTags) {
                     $tags = array_merge($tags, $this->defaultTags);
                 }

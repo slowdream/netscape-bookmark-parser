@@ -99,8 +99,9 @@ class ParseScuttleBookmarksTest extends TestCase
         $this->assertEquals(1, sizeof($bkm));
 
         $this->assertEquals(
-            'The best in funk, soul, jazz and rare groove vinyl' . '<br>'
-            . 'I have been writing about music in various forms (zines, newspapers, e-zines, blogs) since the mid-80’s. '
+            'The best in funk, soul, jazz and rare groove vinyl<br>'
+            . 'I have been writing about music in various forms (zines, newspapers, e-zines, blogs) '
+            . 'since the mid-80’s. '
             . 'The Funky16Corners blog started in November of 2004 to focus on funk and soul vinyl. '
             . 'Since mid-2006, in addition to individual MP3 tracks, I have been posting mixes '
             . 'under the title Funky16Corners radio. Most MP3s and mixes will be available for a few weeks.',

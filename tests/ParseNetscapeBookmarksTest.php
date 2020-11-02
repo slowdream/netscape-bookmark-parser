@@ -19,7 +19,7 @@ class ParseNetscapeBookmarksTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->parser = new NetscapeBookmarkParser(true, array(), 'error');
+        $this->parser = new NetscapeBookmarkParser(true, [], 'error');
     }
 
     /**
@@ -196,7 +196,7 @@ class ParseNetscapeBookmarksTest extends TestCase
     public function testParseBooleanAttributesDefault()
     {
         $default = 'def';
-        $parser = new NetscapeBookmarkParser(false, array(), $default);
+        $parser = new NetscapeBookmarkParser(false, [], $default);
 
         $this->assertEquals(
             $default,
@@ -400,7 +400,9 @@ class ParseNetscapeBookmarksTest extends TestCase
                        'oceans, escaping repeated attempts of capture. Then a dramatic pursuit ' .
                        'finally netted the one that got away.' . PHP_EOL;
         $description .= '<A href="http://localhost.localdomain:8083/Shaarli/?JVvqCA">' . PHP_EOL;
-        $description .= '<img src="http://localhost.localdomain:8083/Shaarli/cache/thumb/290ccda0deea6083ee613d358446103e/c975558ad43acdbd982ffafd8c01163d6c9ec5ca125901.jpg"/>' . PHP_EOL;
+        $description .= '<img src="http://localhost.localdomain:8083/Shaarli/cache/';
+        $description .= 'thumb/290ccda0deea6083ee613d358446103e/';
+        $description .= 'c975558ad43acdbd982ffafd8c01163d6c9ec5ca125901.jpg"/>' . PHP_EOL;
         $description .= '</A>';
 
         $this->assertEquals(
