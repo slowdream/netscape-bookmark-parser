@@ -31,7 +31,7 @@ class ParseScuttleBookmarksTest extends TestCase
             $bkm[0]['note']
         );
         $this->assertEquals('0', $bkm[0]['pub']);
-        $this->assertEquals('dictionary', $bkm[0]['tags']);
+        $this->assertEquals(['dictionary'], $bkm[0]['tags']);
         $this->assertEquals('1298020913', $bkm[0]['time']);
         $this->assertEquals('EuroVoc Thesaurus', $bkm[0]['title']);
         $this->assertEquals(
@@ -41,7 +41,7 @@ class ParseScuttleBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[1]['note']);
         $this->assertEquals('0', $bkm[1]['pub']);
-        $this->assertEquals('dictionary', $bkm[1]['tags']);
+        $this->assertEquals(['dictionary'], $bkm[1]['tags']);
         $this->assertEquals('1290688452', $bkm[1]['time']);
         $this->assertEquals("IATE - The EU's multilingual term base", $bkm[1]['title']);
         $this->assertEquals(
@@ -55,7 +55,7 @@ class ParseScuttleBookmarksTest extends TestCase
             $bkm[2]['note']
         );
         $this->assertEquals('0', $bkm[2]['pub']);
-        $this->assertEquals('dictionary', $bkm[2]['tags']);
+        $this->assertEquals(['dictionary'], $bkm[2]['tags']);
         $this->assertEquals('1290691589', $bkm[2]['time']);
         $this->assertEquals(
             'Linguee - Das Web als WÃ¶rterbuch - EN/DE, EN/FR, EN/SP, EN/POR',
@@ -75,7 +75,7 @@ class ParseScuttleBookmarksTest extends TestCase
             $bkm[3]['note']
         );
         $this->assertEquals('0', $bkm[3]['pub']);
-        $this->assertEquals('dictionary', $bkm[3]['tags']);
+        $this->assertEquals(['dictionary'], $bkm[3]['tags']);
         $this->assertEquals('1210915553', $bkm[3]['time']);
         $this->assertEquals(
             'UN Terminology in German, English (&amp; French &amp; Spanish)',
@@ -105,7 +105,7 @@ class ParseScuttleBookmarksTest extends TestCase
             $bkm[0]['note']
         );
         $this->assertEquals('0', $bkm[0]['pub']);
-        $this->assertEquals('funk musik blog', $bkm[0]['tags']);
+        $this->assertEquals(['funk', 'musik', 'blog'], $bkm[0]['tags']);
         $this->assertEquals('1491107880', $bkm[0]['time']);
         $this->assertEquals('Funky16Corners', $bkm[0]['title']);
         $this->assertEquals(
