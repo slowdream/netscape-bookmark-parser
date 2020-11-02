@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shaarli\NetscapeBookmarkParser;
 
 class ParseShaarliWithTabsAndSpacesTest extends TestCase

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shaarli\NetscapeBookmarkParser;
 
 /**
@@ -134,7 +136,7 @@ class ParseNetscapeBookmarksTest extends TestCase
     /**
      * Parse boolean attribute values - evaluating to TRUE
      */
-    function testParseBooleanAttributesTrue()
+    public function testParseBooleanAttributesTrue()
     {
         // standard booleans
         $this->assertTrue($this->parser->parseBoolean('on'));
@@ -162,7 +164,7 @@ class ParseNetscapeBookmarksTest extends TestCase
     /**
      * Parse boolean attribute values - evaluating to FALSE
      */
-    function testParseBooleanAttributesFalse()
+    public function testParseBooleanAttributesFalse()
     {
         // standard booleans
         $this->assertFalse($this->parser->parseBoolean('f'));
@@ -191,7 +193,7 @@ class ParseNetscapeBookmarksTest extends TestCase
     /**
      * Parse boolean attribute values - fail and return the default value
      */
-    function testParseBooleanAttributesDefault()
+    public function testParseBooleanAttributesDefault()
     {
         $default = 'def';
         $parser = new NetscapeBookmarkParser(false, array(), $default);
