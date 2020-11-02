@@ -181,13 +181,11 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                     $separator = strpos($m7[2], ',') !== false ? ',' : ' ';
                     $tags = array_merge(
                         $tags,
-                        array_values(array_filter(array_map('trim', explode($separator, $m7[2])
-                    ))));
+                        static::splitTagString($m7[2], $separator)
+                    );
                 }
                 $this->items[$i]['tags'] = $tags;
-                $tagString = implode($separator ?? ' ', $this->items[$i]['tags']);
-
-                $this->logger->debug('[#' . $line_no . '] Tag list: '. $tagString);
+                $this->logger->debug('[#' . $line_no . '] Tag list: '. implode(' ', $this->items[$i]['tags']));
 
                 if (preg_match('/add_date="(.*?)"/i', $line, $m8)) {
                     $this->items[$i]['time'] = $this->parseDate($m8[1]);
@@ -361,6 +359,24 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     }
 
     /**
+     * Split tag string using provided separator.
+     *
+     * @param string $tagString Tag string
+     * @param string $separator
+     *
+     * @return array List of tags (trimmed and filtered)
+     */
+    public static function splitTagString(string $tagString, string $separator): array
+    {
+        $tags = explode($separator, strtolower($tagString));
+
+        // remove multiple consecutive whitespaces
+        $tags = preg_replace('/\s{2,}/', ' ', $tags);
+
+        return array_values(array_filter(array_map('trim', $tags)));
+    }
+
+    /**
      * Sanitizes a space-separated list of tags
      *
      * This removes:
@@ -375,7 +391,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     public static function sanitizeTags(string $tagString): array
     {
         $separator = strpos($tagString, ',') !== false ? ',' : ' ';
-        $tags = explode($separator, strtolower($tagString));
+        $tags = static::splitTagString($tagString, $separator);
 
         foreach ($tags as $key => &$value) {
             if (ctype_alnum($value)) {
@@ -384,8 +400,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
 
             $keepWhiteSpaces = $separator !== ' ';
 
-            // trim + remove multiple consecutive whitespaces
-            $value = preg_replace('/\s{2,}/', ' ', trim($value));
+            $value = strtolower($value);
 
             // trim leading punctuation
             $value = preg_replace('/^[[:punct:]]/', '', $value);
