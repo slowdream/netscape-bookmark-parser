@@ -28,7 +28,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[0]['note']);
         $this->assertEquals('1', $bkm[0]['pub']);
-        $this->assertEquals('', $bkm[0]['tags']);
+        $this->assertEquals([], $bkm[0]['tags']);
         $this->assertEquals(
             '1460294956',
             $bkm[0]['time']
@@ -45,7 +45,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[0]['note']);
         $this->assertEquals('1', $bkm[0]['pub']);
-        $this->assertEquals('', $bkm[0]['tags']);
+        $this->assertEquals([], $bkm[0]['tags']);
         $this->assertEquals(
             '1460294956',
             $bkm[1]['time']
@@ -69,7 +69,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[2]['pub']
         );
         $this->assertEquals(
-            'github php netscape parser',
+            ['github', 'php', 'netscape', 'parser'],
             $bkm[2]['tags']
         );
         $this->assertEquals(
@@ -89,7 +89,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         $this->assertEquals('', $bkm[3]['note']);
         $this->assertEquals('1', $bkm[3]['pub']);
         $this->assertEquals(
-            'lua script cpp dev',
+            ['lua', 'script', 'cpp', 'dev'],
             $bkm[3]['tags']
         );
         $this->assertEquals(
@@ -108,7 +108,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         $this->assertEquals('', $bkm[4]['note']);
         $this->assertEquals('1', $bkm[4]['pub']);
         $this->assertEquals(
-            'php security best-practices dev web',
+            ['php', 'security', 'best-practices', 'dev', 'web'],
             $bkm[4]['tags']
         );
         $this->assertEquals(
@@ -134,7 +134,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[5]['pub']
         );
         $this->assertEquals(
-            'webcomic commit code review dev',
+            ['webcomic', 'commit', 'code', 'review', 'dev'],
             $bkm[5]['tags']
         );
         $this->assertEquals(
@@ -161,7 +161,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[6]['pub']
         );
         $this->assertEquals(
-            'meetup presentation event community',
+            ['meetup', 'presentation', 'event', 'community'],
             $bkm[6]['tags']
         );
         $this->assertEquals(
@@ -187,7 +187,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[7]['pub']
         );
         $this->assertEquals(
-            'teapot 418 computer graphics image sythesis',
+            ['teapot', '418', 'computer', 'graphics', 'image', 'sythesis'],
             $bkm[7]['tags']
         );
         $this->assertEquals(
@@ -214,7 +214,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[8]['pub']
         );
         $this->assertEquals(
-            'github windows compose character keyboard input',
+            ['github', 'windows', 'compose', 'character', 'keyboard', 'input'],
             $bkm[8]['tags']
         );
         $this->assertEquals(
@@ -239,7 +239,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[9]['pub']
         );
         $this->assertEquals(
-            'hg mercurial version control scm python tutorial',
+            ['hg', 'mercurial', 'version', 'control', 'scm', 'python', 'tutorial'],
             $bkm[9]['tags']
         );
         $this->assertEquals(
@@ -264,7 +264,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[10]['pub']
         );
         $this->assertEquals(
-            'emacs editor django pony python mode',
+            ['emacs', 'editor', 'django', 'pony', 'python', 'mode'],
             $bkm[10]['tags']
         );
         $this->assertEquals(
@@ -290,7 +290,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[11]['pub']
         );
         $this->assertEquals(
-            'sysadmin test unix linux network security',
+            ['sysadmin', 'test', 'unix', 'linux', 'network', 'security'],
             $bkm[11]['tags']
         );
         $this->assertEquals(
@@ -315,7 +315,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[12]['pub']
         );
         $this->assertEquals(
-            'tolkien lord rings elves timeline graphics genealogy fantasy',
+            ['tolkien', 'lord', 'rings', 'elves', 'timeline', 'graphics', 'genealogy', 'fantasy'],
             $bkm[12]['tags']
         );
         $this->assertEquals(
@@ -340,7 +340,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[13]['pub']
         );
         $this->assertEquals(
-            'xkcd webcomic slope respect',
+            ['xkcd', 'webcomic', 'slope', 'respect'],
             $bkm[13]['tags']
         );
         $this->assertEquals(
@@ -365,7 +365,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[14]['pub']
         );
         $this->assertEquals(
-            'minecraft game indie pig wtf',
+            ['minecraft', 'game', 'indie', 'pig', 'wtf'],
             $bkm[14]['tags']
         );
         $this->assertEquals(
@@ -391,7 +391,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[15]['pub']
         );
         $this->assertEquals(
-            'question faq bug report dev support',
+            ['question', 'faq', 'bug', 'report', 'dev', 'support'],
             $bkm[15]['tags']
         );
         $this->assertEquals(
@@ -416,7 +416,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[16]['pub']
         );
         $this->assertEquals(
-            'dev wikiwikiweb deadline rush',
+            ['dev', 'wikiwikiweb', 'deadline', 'rush'],
             $bkm[16]['tags']
         );
         $this->assertEquals(
@@ -441,7 +441,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[17]['pub']
         );
         $this->assertEquals(
-            'chocolate research wtf statistics nobel',
+            ['chocolate', 'research', 'wtf', 'statistics', 'nobel'],
             $bkm[17]['tags']
         );
         $this->assertEquals(
@@ -470,7 +470,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[18]['pub']
         );
         $this->assertEquals(
-            'statistics best-practices donot data analysis',
+            ['statistics', 'best-practices', 'donot', 'data', 'analysis'],
             $bkm[18]['tags']
         );
         $this->assertEquals(
@@ -495,7 +495,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[19]['pub']
         );
         $this->assertEquals(
-            'garfield markov language parody comic',
+            ['garfield', 'markov', 'language', 'parody', 'comic'],
             $bkm[19]['tags']
         );
         $this->assertEquals(
@@ -524,7 +524,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[20]['pub']
         );
         $this->assertEquals(
-            'prism break privacy self-hosted web service',
+            ['prism', 'break', 'privacy', 'self-hosted', 'web', 'service'],
             $bkm[20]['tags']
         );
         $this->assertEquals(
@@ -551,7 +551,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[21]['pub']
         );
         $this->assertEquals(
-            'math fractal flowchart chart',
+            ['math', 'fractal', 'flowchart', 'chart'],
             $bkm[21]['tags']
         );
         $this->assertEquals(
@@ -569,7 +569,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[23]['note']);
         $this->assertEquals('1', $bkm[23]['pub']);
-        $this->assertEquals('', $bkm[23]['tags']);
+        $this->assertEquals([], $bkm[23]['tags']);
         $this->assertEquals(
             '1460294956',
             $bkm[22]['time']
@@ -585,7 +585,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[23]['note']);
         $this->assertEquals('1', $bkm[23]['pub']);
-        $this->assertEquals('', $bkm[23]['tags']);
+        $this->assertEquals([], $bkm[23]['tags']);
         $this->assertEquals(
             '1460294956',
             $bkm[23]['time']
@@ -611,7 +611,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[0]['note']);
         $this->assertEquals('1', $bkm[0]['pub']);
-        $this->assertEquals('', $bkm[0]['tags']);
+        $this->assertEquals([], $bkm[0]['tags']);
         $this->assertEquals(
             '1460294956',
             $bkm[0]['time']
@@ -628,7 +628,7 @@ class ParseFirefoxBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[0]['note']);
         $this->assertEquals('1', $bkm[0]['pub']);
-        $this->assertEquals('', $bkm[0]['tags']);
+        $this->assertEquals([], $bkm[0]['tags']);
         $this->assertEquals(
             '1460294956',
             $bkm[1]['time']
@@ -651,7 +651,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[2]['pub']
         );
         $this->assertEquals(
-            'tolkien lord rings elves timeline graphics genealogy fantasy',
+            ['tolkien','lord','rings','elves','timeline','graphics','genealogy','fantasy'],
             $bkm[2]['tags']
         );
         $this->assertEquals(
@@ -676,7 +676,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[3]['pub']
         );
         $this->assertEquals(
-            'comics webcomic commit code review dev',
+            ['comics','webcomic','commit','code','review','dev'],
             $bkm[3]['tags']
         );
         $this->assertEquals(
@@ -701,7 +701,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[4]['pub']
         );
         $this->assertEquals(
-            'comics xkcd webcomic slope respect',
+            ['comics','xkcd','webcomic','slope','respect'],
             $bkm[4]['tags']
         );
         $this->assertEquals(
@@ -726,7 +726,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[5]['pub']
         );
         $this->assertEquals(
-            'comics garfield markov language parody comic',
+            ['comics','garfield','markov','language','parody','comic'],
             $bkm[5]['tags']
         );
         $this->assertEquals(
@@ -752,7 +752,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[6]['pub']
         );
         $this->assertEquals(
-            'comics math fractal flowchart chart',
+            ['comics','math','fractal','flowchart','chart'],
             $bkm[6]['tags']
         );
         $this->assertEquals(
@@ -771,7 +771,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         $this->assertEquals('', $bkm[7]['note']);
         $this->assertEquals('1', $bkm[7]['pub']);
         $this->assertEquals(
-            'dev lua script cpp dev',
+            ['dev','lua','script','cpp','dev'],
             $bkm[7]['tags']
         );
         $this->assertEquals(
@@ -797,7 +797,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[8]['pub']
         );
         $this->assertEquals(
-            'dev teapot 418 computer graphics image sythesis',
+            ['dev','teapot','418','computer','graphics','image','sythesis'],
             $bkm[8]['tags']
         );
         $this->assertEquals(
@@ -824,7 +824,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[9]['pub']
         );
         $this->assertEquals(
-            'dev hg mercurial version control scm python tutorial',
+            ['dev', 'hg', 'mercurial', 'version', 'control', 'scm', 'python', 'tutorial'],
             $bkm[9]['tags']
         );
         $this->assertEquals(
@@ -849,7 +849,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[10]['pub']
         );
         $this->assertEquals(
-            'dev emacs editor django pony python mode',
+            ['dev', 'emacs', 'editor', 'django', 'pony', 'python', 'mode'],
             $bkm[10]['tags']
         );
         $this->assertEquals(
@@ -875,7 +875,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[11]['pub']
         );
         $this->assertEquals(
-            'dev wikiwikiweb deadline rush',
+            ['dev', 'wikiwikiweb', 'deadline', 'rush'],
             $bkm[11]['tags']
         );
         $this->assertEquals(
@@ -900,7 +900,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[12]['pub']
         );
         $this->assertEquals(
-            'dev statistics best-practices donot data analysis',
+            ['dev', 'statistics', 'best-practices', 'donot', 'data', 'analysis'],
             $bkm[12]['tags']
         );
         $this->assertEquals(
@@ -926,7 +926,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[13]['pub']
         );
         $this->assertEquals(
-            'dev php github netscape parser',
+            ['dev', 'php', 'github', 'netscape', 'parser'],
             $bkm[13]['tags']
         );
         $this->assertEquals(
@@ -946,7 +946,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         $this->assertEquals('', $bkm[14]['note']);
         $this->assertEquals('1', $bkm[14]['pub']);
         $this->assertEquals(
-            'dev php security best-practices web',
+            ['dev', 'php', 'security', 'best-practices', 'web'],
             $bkm[14]['tags']
         );
         $this->assertEquals(
@@ -972,7 +972,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[15]['pub']
         );
         $this->assertEquals(
-            'dev chocolate research wtf statistics nobel',
+            ['dev', 'chocolate', 'research', 'wtf', 'statistics', 'nobel'],
             $bkm[15]['tags']
         );
         $this->assertEquals(
@@ -1003,7 +1003,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[16]['pub']
         );
         $this->assertEquals(
-            'floss meetup presentation event community',
+            ['floss', 'meetup', 'presentation', 'event', 'community'],
             $bkm[16]['tags']
         );
         $this->assertEquals(
@@ -1028,7 +1028,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[17]['pub']
         );
         $this->assertEquals(
-            'floss github windows compose character keyboard input',
+            ['floss', 'github', 'windows', 'compose', 'character', 'keyboard', 'input'],
             $bkm[17]['tags']
         );
         $this->assertEquals(
@@ -1053,7 +1053,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[18]['pub']
         );
         $this->assertEquals(
-            'floss sysadmin test unix linux network security',
+            ['floss', 'sysadmin', 'test', 'unix', 'linux', 'network', 'security'],
             $bkm[18]['tags']
         );
         $this->assertEquals(
@@ -1078,7 +1078,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[19]['pub']
         );
         $this->assertEquals(
-            'floss question faq bug report dev support',
+            ['floss', 'question', 'faq', 'bug', 'report', 'dev', 'support'],
             $bkm[19]['tags']
         );
         $this->assertEquals(
@@ -1107,7 +1107,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[20]['pub']
         );
         $this->assertEquals(
-            'floss prism break privacy self-hosted web service',
+            ['floss', 'prism', 'break', 'privacy', 'self-hosted', 'web', 'service'],
             $bkm[20]['tags']
         );
         $this->assertEquals(
@@ -1133,7 +1133,7 @@ class ParseFirefoxBookmarksTest extends TestCase
             $bkm[21]['pub']
         );
         $this->assertEquals(
-            'games minecraft game indie pig wtf',
+            ['games', 'minecraft', 'game', 'indie', 'pig', 'wtf'],
             $bkm[21]['tags']
         );
         $this->assertEquals(
@@ -1153,7 +1153,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         $this->assertEquals('', $bkm[22]['note']);
         $this->assertEquals('1', $bkm[22]['pub']);
         $this->assertEquals(
-            'personal toolbar',
+            ['personal', 'toolbar'],
             $bkm[22]['tags']
         );
         $this->assertEquals(
@@ -1172,7 +1172,7 @@ class ParseFirefoxBookmarksTest extends TestCase
         $this->assertEquals('', $bkm[23]['note']);
         $this->assertEquals('1', $bkm[23]['pub']);
         $this->assertEquals(
-            'personal toolbar',
+            ['personal', 'toolbar'],
             $bkm[23]['tags']
         );
         $this->assertEquals(

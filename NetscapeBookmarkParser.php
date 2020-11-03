@@ -55,7 +55,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         if ($defaultTags) {
             $this->defaultTags = $defaultTags;
         } else {
-            $this->defaultTags = array();
+            $this->defaultTags = [];
         }
         $this->defaultPub = $defaultPub;
 
@@ -96,7 +96,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      *             (
      *                 [note]  => Some comments about this link
      *                 [pub]   => 1
-     *                 [tags]  => a list of tags
+     *                 [tags]  => ['a', 'list', 'of', 'tags']
      *                 [time]  => 1459371397
      *                 [title] => Some page
      *                 [uri]   => http://domain.tld:5678/some-page.html
@@ -113,8 +113,8 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      */
     public function parseString($bookmarkString) {
         $i = 0;
-        $next = false;
-        $folderTags = array();
+        $folderTags = [];
+        $groupedFolderTags = [];
 
         $lines = explode("\n", $this->sanitizeString($bookmarkString));
 
@@ -125,16 +125,18 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                 // a header is matched:
                 // - links may be grouped in a (sub-)folder
                 // - append the header's content to the folder tags
-                $tag = $this->sanitizeTagString($m1[1]);
+                $tag = static::sanitizeTags($m1[1]);
 
-                $folderTags[] = $tag;
-                $this->logger->debug('[#' . $line_no . '] Header found: ' . $tag);
+                $groupedFolderTags[] = $tag;
+                $folderTags = static::flattenTagsList($groupedFolderTags);
+                $this->logger->debug('[#' . $line_no . '] Header found: ' . implode(' ', $tag));
                 continue;
 
             } elseif (preg_match('/^<\/DL>/i', $line)) {
                 // </DL> matched: stop using header value
-                $tag = array_pop($folderTags);
-                $this->logger->debug('[#' . $line_no . '] Header ended: ' . $tag);
+                $tag = array_pop($groupedFolderTags);
+                $folderTags = static::flattenTagsList($groupedFolderTags);
+                $this->logger->debug('[#' . $line_no . '] Header ended: ' . implode(' ', $tag ?? []));
                 continue;
             }
 
@@ -176,10 +178,14 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                 }
 
                 if (preg_match('/(tags?|labels?|folders?)="(.*?)"/i', $line, $m7)) {
-                    $tags = array_merge($tags, explode(' ', strtr($m7[2], ',', ' ')));
+                    $separator = strpos($m7[2], ',') !== false ? ',' : ' ';
+                    $tags = array_merge(
+                        $tags,
+                        static::splitTagString($m7[2], $separator)
+                    );
                 }
-                $this->items[$i]['tags'] = implode(' ', $tags);
-                $this->logger->debug('[#' . $line_no . '] Tag list: '. $this->items[$i]['tags']);
+                $this->items[$i]['tags'] = $tags;
+                $this->logger->debug('[#' . $line_no . '] Tag list: '. implode(' ', $this->items[$i]['tags']));
 
                 if (preg_match('/add_date="(.*?)"/i', $line, $m8)) {
                     $this->items[$i]['time'] = $this->parseDate($m8[1]);
@@ -353,6 +359,24 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     }
 
     /**
+     * Split tag string using provided separator.
+     *
+     * @param string $tagString Tag string
+     * @param string $separator
+     *
+     * @return array List of tags (trimmed and filtered)
+     */
+    public static function splitTagString(string $tagString, string $separator): array
+    {
+        $tags = explode($separator, strtolower($tagString));
+
+        // remove multiple consecutive whitespaces
+        $tags = preg_replace('/\s{2,}/', ' ', $tags);
+
+        return array_values(array_filter(array_map('trim', $tags)));
+    }
+
+    /**
      * Sanitizes a space-separated list of tags
      *
      * This removes:
@@ -362,29 +386,48 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      *
      * @param string $tagString Space-separated list of tags
      *
-     * @return string Sanitized space-separated list of tags
+     * @return array List of sanitized tags
      */
-    public static function sanitizeTagString($tagString)
+    public static function sanitizeTags(string $tagString): array
     {
-        $tags = explode(' ', strtolower($tagString));
+        $separator = strpos($tagString, ',') !== false ? ',' : ' ';
+        $tags = static::splitTagString($tagString, $separator);
 
         foreach ($tags as $key => &$value) {
             if (ctype_alnum($value)) {
                 continue;
             }
 
+            $keepWhiteSpaces = $separator !== ' ';
+
+            $value = strtolower($value);
+
             // trim leading punctuation
             $value = preg_replace('/^[[:punct:]]/', '', $value);
 
             // trim all but alphanumeric characters, underscores and non-leading dashes
-            $value = preg_replace('/[^\p{L}\p{N}\-_]++/u', '', $value);
+            $value = preg_replace('/[^\p{L}\p{N}\-_'. ($keepWhiteSpaces ? ' ' : '') .']++/u', '', $value);
 
             if ($value == '') {
                 unset($tags[$key]);
             }
         }
 
-        return implode(' ', $tags);
+        return array_values($tags);
+    }
+
+    /**
+     * Flatten a multi-dimensions array of tags into a one-dimension array.
+     *
+     * @param array $groupedTags Array of arrays of tags
+     *
+     * @return array Flatten tags list
+     */
+    public static function flattenTagsList(array $groupedTags): array
+    {
+        return array_reduce($groupedTags, function (array $carry, array $item) {
+            return array_merge($carry, $item);
+        }, []);
     }
 
     /**

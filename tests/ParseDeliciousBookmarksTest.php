@@ -54,7 +54,7 @@ class ParseDeliciousBookmarksTest extends TestCase
 
         $this->assertEquals('1', $bkm[4]['pub']);
         $this->assertEquals(
-            '@font-face os typography',
+            ['@font-face', 'os', 'typography'],
             $bkm[4]['tags']
         );
         $this->assertEquals('1412085559', $bkm[4]['time']);
@@ -83,7 +83,7 @@ class ParseDeliciousBookmarksTest extends TestCase
             'spip pastebin - outil de debug collaboratif - Bonjour les écureuils !',
             $bkm[0]['title']
         );
-        $this->assertEquals('spip3   astuces ', $bkm[0]['tags']);
+        $this->assertEquals(['spip3', 'astuces'], $bkm[0]['tags']);
 
         $this->assertEquals('1', $bkm[1]['pub']);
         $this->assertEquals('1380651611', $bkm[1]['time']);

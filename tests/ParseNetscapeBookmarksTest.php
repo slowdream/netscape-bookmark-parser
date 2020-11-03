@@ -39,7 +39,7 @@ class ParseNetscapeBookmarksTest extends TestCase
 
         $this->assertEquals('Secret stuff', $bkm[0]['title']);
         $this->assertEquals(0, $bkm[0]['pub']);
-        $this->assertEquals('private secret', $bkm[0]['tags']);
+        $this->assertEquals(['private', 'secret'], $bkm[0]['tags']);
         $this->assertEquals('971175336', $bkm[0]['time']);
         $this->assertEquals(
             'Super-secret stuff you\'re not supposed to know about',
@@ -48,7 +48,7 @@ class ParseNetscapeBookmarksTest extends TestCase
 
         $this->assertEquals('Public stuff', $bkm[1]['title']);
         $this->assertEquals(1, $bkm[1]['pub']);
-        $this->assertEquals('public hello world', $bkm[1]['tags']);
+        $this->assertEquals(['public', 'hello', 'world'], $bkm[1]['tags']);
         $this->assertEquals('1456433748', $bkm[1]['time']);
         $this->assertEquals('', $bkm[1]['note']);
     }
@@ -92,35 +92,41 @@ class ParseNetscapeBookmarksTest extends TestCase
         $bkm = $this->parser->parseFile('tests/input/netscape_nested.htm');
         $this->assertEquals(8, sizeof($bkm));
 
-        $this->assertEquals('tag1 tag2', $bkm[0]['tags']);
+        $this->assertEquals(['tag1', 'tag2', 'multi word'], $bkm[0]['tags']);
         $this->assertEquals('1456433741', $bkm[0]['time']);
         $this->assertEquals('Nested 1', $bkm[0]['title']);
 
-        $this->assertEquals('folder1 tag1 tag2', $bkm[1]['tags']);
+        $this->assertEquals(
+            ['folder1', 'the first', 'folder to encounter', 'tag1', 'tag2', 'multi word'],
+            $bkm[1]['tags']
+        );
         $this->assertEquals('1456433742', $bkm[1]['time']);
         $this->assertEquals('Nested 1-1', $bkm[1]['title']);
 
-        $this->assertEquals('folder1 tag3 tag4', $bkm[2]['tags']);
+        $this->assertEquals(
+            ['folder1', 'the first', 'folder to encounter', 'tag3', 'tag4', 'leaf multi word'],
+            $bkm[2]['tags']
+        );
         $this->assertEquals('1456433747', $bkm[2]['time']);
         $this->assertEquals('Nested 1-2', $bkm[2]['title']);
 
-        $this->assertEquals('folder2', $bkm[3]['tags']);
+        $this->assertEquals(['folder2'], $bkm[3]['tags']);
         $this->assertEquals('1454433742', $bkm[3]['time']);
         $this->assertEquals('Nested 2-1', $bkm[3]['title']);
 
-        $this->assertEquals('folder2', $bkm[4]['tags']);
+        $this->assertEquals(['folder2'], $bkm[4]['tags']);
         $this->assertEquals('1453233747', $bkm[4]['time']);
         $this->assertEquals('Nested 2-2', $bkm[4]['title']);
 
-        $this->assertEquals('folder3 folder3-1 tag3', $bkm[5]['tags']);
+        $this->assertEquals(['folder3', 'folder3-1', 'tag3'], $bkm[5]['tags']);
         $this->assertEquals('1454433742', $bkm[5]['time']);
         $this->assertEquals('Nested 3-1', $bkm[5]['title']);
 
-        $this->assertEquals('folder3 folder3-1', $bkm[6]['tags']);
+        $this->assertEquals(['folder3', 'folder3-1'], $bkm[6]['tags']);
         $this->assertEquals('1453233747', $bkm[6]['time']);
         $this->assertEquals('Nested 3-2', $bkm[6]['title']);
 
-        $this->assertEquals('tag4', $bkm[7]['tags']);
+        $this->assertEquals(['tag4'], $bkm[7]['tags']);
         $this->assertEquals('1456733741', $bkm[7]['time']);
         $this->assertEquals('Nested 2', $bkm[7]['title']);
     }
@@ -275,7 +281,7 @@ class ParseNetscapeBookmarksTest extends TestCase
         $bkm = $this->parser->parseString(
             '<A HREF="http://no.tag">NoTag</A>'
         );
-        $this->assertEquals('', $bkm[0]['tags']);
+        $this->assertEquals([], $bkm[0]['tags']);
     }
 
     /**
@@ -283,14 +289,14 @@ class ParseNetscapeBookmarksTest extends TestCase
      */
     public function testAddUserDefaultTag()
     {
-        $default = 'im port ed';
-        $parser = new NetscapeBookmarkParser(false, array($default));
+        $default = ['im', 'port', 'ed'];
+        $parser = new NetscapeBookmarkParser(false, $default);
 
         $bkm = $parser->parseString(
             '<A HREF="http://no.tag">NoTag</A>'
         );
         $this->assertEquals(
-            'im port ed',
+            ['im', 'port', 'ed'],
             $bkm[0]['tags']
         );
     }
@@ -304,7 +310,7 @@ class ParseNetscapeBookmarksTest extends TestCase
             '<A HREF="http://empty.tag" TAGS="">EmptyTag</A>'
         );
         $this->assertEquals(
-            '',
+            [],
             $bkm[0]['tags']
         );
     }
@@ -318,7 +324,7 @@ class ParseNetscapeBookmarksTest extends TestCase
             '<A HREF="http://space.tag" TAGS="t1 t2">SpaceTag</A>'
         );
         $this->assertEquals(
-            't1 t2',
+            ['t1', 't2'],
             $bkm[0]['tags']
         );
 
@@ -326,7 +332,7 @@ class ParseNetscapeBookmarksTest extends TestCase
             '<A HREF="http://space.tag" TAGS="t_1 .t_2">SpaceTag</A>'
         );
         $this->assertEquals(
-            't_1 .t_2',
+            ['t_1', '.t_2'],
             $bkm[0]['tags']
         );
     }
@@ -340,7 +346,7 @@ class ParseNetscapeBookmarksTest extends TestCase
             '<A HREF="http://comma.tag" TAGS="t1,t2,t3">CommaTag</A>'
         );
         $this->assertEquals(
-            't1 t2 t3',
+            ['t1', 't2', 't3'],
             $bkm[0]['tags']
         );
 
@@ -348,7 +354,7 @@ class ParseNetscapeBookmarksTest extends TestCase
             '<A HREF="http://comma.tag" TAGS="t1,.t2,.t_3">CommaTag</A>'
         );
         $this->assertEquals(
-            't1 .t2 .t_3',
+            ['t1', '.t2', '.t_3'],
             $bkm[0]['tags']
         );
     }
@@ -358,24 +364,24 @@ class ParseNetscapeBookmarksTest extends TestCase
      */
     public function testSanitizeFolderTagString()
     {
-        $this->assertEquals('', $this->parser->sanitizeTagString(''));
+        $this->assertEquals([], $this->parser->sanitizeTags(''));
 
         $this->assertEquals(
-            'hello',
-            $this->parser->sanitizeTagString('-hello')
+            ['hello'],
+            $this->parser->sanitizeTags('-hello')
         );
         $this->assertEquals(
-            'hello',
-            $this->parser->sanitizeTagString('_hello')
+            ['hello'],
+            $this->parser->sanitizeTags('_hello')
         );
 
         $this->assertEquals(
-            'hello world',
-            $this->parser->sanitizeTagString('-hello$, WOrld')
+            ['hello', 'world'],
+            $this->parser->sanitizeTags('-hello$, WOrld')
         );
         $this->assertEquals(
-            'hello world',
-            $this->parser->sanitizeTagString('-Hello$ - WOrlD!')
+            ['hello', 'world'],
+            $this->parser->sanitizeTags('-Hello$ - WOrlD!')
         );
     }
 
@@ -400,7 +406,7 @@ class ParseNetscapeBookmarksTest extends TestCase
             $bkm[0]['title']
         );
         $this->assertEquals(0, $bkm[0]['pub']);
-        $this->assertEquals('story oceans', $bkm[0]['tags']);
+        $this->assertEquals(['story', 'oceans'], $bkm[0]['tags']);
         $this->assertEquals('1591451445', $bkm[0]['time']);
         $this->assertEquals($description, $bkm[0]['note']);
     }

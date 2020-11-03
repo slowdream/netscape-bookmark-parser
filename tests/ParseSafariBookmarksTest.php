@@ -26,13 +26,13 @@ class ParseSafariBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[0]['note']);
         $this->assertEquals('0', $bkm[0]['pub']);
-        $this->assertEquals('favoris', $bkm[0]['tags']);
+        $this->assertEquals(['favoris'], $bkm[0]['tags']);
         $this->assertEquals('GitHub', $bkm[0]['title']);
         $this->assertEquals('https://github.com/', $bkm[0]['uri']);
 
         $this->assertEquals('', $bkm[1]['note']);
         $this->assertEquals('0', $bkm[1]['pub']);
-        $this->assertEquals('github shaarli', $bkm[1]['tags']);
+        $this->assertEquals(['github', 'shaarli'], $bkm[1]['tags']);
         $this->assertEquals(
             'GitHub - shaarli/Shaarli:'
            .' The personal, minimalist, super-fast, database free,'
@@ -43,7 +43,7 @@ class ParseSafariBookmarksTest extends TestCase
 
         $this->assertEquals('', $bkm[2]['note']);
         $this->assertEquals('0', $bkm[2]['pub']);
-        $this->assertEquals('autre divers doc', $bkm[2]['tags']);
+        $this->assertEquals(['autre', 'divers', 'doc'], $bkm[2]['tags']);
         $this->assertEquals(
             'Wikipedia, the free encyclopedia',
             $bkm[2]['title']

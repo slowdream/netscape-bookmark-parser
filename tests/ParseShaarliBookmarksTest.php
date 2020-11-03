@@ -55,7 +55,7 @@ class ParseShaarliBookmarksTest extends TestCase
             $bkm[0]['note']
         );
         $this->assertEquals(
-            'breton recipe kouign amann traditional caramel butter',
+            ['breton', 'recipe', 'kouign', 'amann', 'traditional', 'caramel', 'butter'],
             $bkm[0]['tags']
         );
         $this->assertEquals('1459371397', $bkm[0]['time']);
@@ -63,7 +63,7 @@ class ParseShaarliBookmarksTest extends TestCase
 
         $this->assertEquals('1', $bkm[1]['pub']);
         $this->assertEquals(
-            'teapot computer generation graphics 3d',
+            ['teapot', 'computer', 'generation', 'graphics', '3d'],
             $bkm[1]['tags']
         );
         $this->assertEquals('1459371358', $bkm[1]['time']);
@@ -204,7 +204,7 @@ class ParseShaarliBookmarksTest extends TestCase
                 'uri' => 'https://gist.github.com/rodrigomuniz/8408734',
                 'title' => 'A Pen by Rodrigo Muniz.',
                 'note' => 'simple on/off button',
-                'tags' => 'css',
+                'tags' => ['css'],
                 'time' => 1470640652,
                 'pub' => 0
             ),
@@ -217,7 +217,7 @@ class ParseShaarliBookmarksTest extends TestCase
                 'title' => 'URL Rewriting for Beginners - '
                            .'Web Development in Brighton - Added Bytes',
                 'note' => '',
-                'tags' => 'apache',
+                'tags' => ['apache'],
                 'time' => 1469950052,
                 'pub' => 1
             ),
