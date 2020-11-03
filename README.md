@@ -37,11 +37,22 @@ This is a community fork of the original
 [netscape-bookmark-parser](https://github.com/kafene/netscape-bookmark-parser)
 project by [Kafene](http://kafene.org/).
 
+## Installation
+
+Using [Composer](https://getcomposer.org/) ([package](https://packagist.org/packages/shaarli/netscape-bookmark-parser)):
+
+```bash
+composer require shaarli/netscape-bookmark-parser
+```
+
 ## Example
 Script:
 ```php
 <?php
-require_once 'NetscapeBookmarkParser.php';
+
+require_once 'vendor/autoload.php';
+
+use Shaarli\NetscapeBookmarkParser\NetscapeBookmarkParser;
 
 $parser = new NetscapeBookmarkParser();
 $bookmarks = $parser->parseFile('./tests/input/netscape_basic.htm');
@@ -53,14 +64,19 @@ Output:
 array(2) {
   [0] =>
   array(6) {
-    'tags' =>
-    string(14) "private secret"
     'uri' =>
     string(19) "https://private.tld"
     'title' =>
     string(12) "Secret stuff"
     'note' =>
     string(52) "Super-secret stuff you're not supposed to know about"
+    'tags' =>
+    array(2) {
+      [0] =>
+      string(7) "private"
+      [1] =>
+      string(6) "secret"
+    }
     'time' =>
     int(971175336)
     'pub' =>
@@ -68,14 +84,21 @@ array(2) {
   }
   [1] =>
   array(6) {
-    'tags' =>
-    string(18) "public hello world"
     'uri' =>
     string(17) "http://public.tld"
     'title' =>
     string(12) "Public stuff"
     'note' =>
     string(0) ""
+    'tags' =>
+    array(3) {
+      [0] =>
+      string(6) "public"
+      [1] =>
+      string(5) "hello"
+      [2] =>
+      string(5) "world"
+    }
     'time' =>
     int(1456433748)
     'pub' =>
