@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shaarli\NetscapeBookmarkParser;
 
 /**
@@ -17,7 +19,7 @@ class ParseNetscapeBookmarksTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->parser = new NetscapeBookmarkParser(true, array(), 'error');
+        $this->parser = new NetscapeBookmarkParser(true, [], 'error');
     }
 
     /**
@@ -63,23 +65,23 @@ class ParseNetscapeBookmarksTest extends TestCase
 
         // simple list
         $this->assertEquals(
-            'List:'.PHP_EOL.'- item1'.PHP_EOL.'- item2'.PHP_EOL.'- item3',
+            'List:' . PHP_EOL . '- item1' . PHP_EOL . '- item2' . PHP_EOL . '- item3',
             $bkm[0]['note']
         );
 
         // nested lists
         $this->assertEquals(
             'Nested lists:'
-           .PHP_EOL.'- list1'.PHP_EOL.'  - item1.1'.PHP_EOL.'  - item1.2'.PHP_EOL.'  - item1.3'
-           .PHP_EOL.'- list2'.PHP_EOL.'  - item2.1',
+            . PHP_EOL . '- list1' . PHP_EOL . '  - item1.1' . PHP_EOL . '  - item1.2' . PHP_EOL . '  - item1.3'
+            . PHP_EOL . '- list2' . PHP_EOL . '  - item2.1',
             $bkm[1]['note']
         );
 
         // list and paragraphs separated by several newlines
         $this->assertEquals(
-            'List:'.PHP_EOL.'- item1'.PHP_EOL.'- item2'.PHP_EOL
-           .PHP_EOL.'Paragraph number one.'.PHP_EOL
-           .PHP_EOL.'Paragraph'.PHP_EOL.'number'.PHP_EOL.'two.',
+            'List:' . PHP_EOL . '- item1' . PHP_EOL . '- item2' . PHP_EOL
+            . PHP_EOL . 'Paragraph number one.' . PHP_EOL
+            . PHP_EOL . 'Paragraph' . PHP_EOL . 'number' . PHP_EOL . 'two.',
             $bkm[2]['note']
         );
     }
@@ -134,7 +136,7 @@ class ParseNetscapeBookmarksTest extends TestCase
     /**
      * Parse boolean attribute values - evaluating to TRUE
      */
-    function testParseBooleanAttributesTrue()
+    public function testParseBooleanAttributesTrue()
     {
         // standard booleans
         $this->assertTrue($this->parser->parseBoolean('on'));
@@ -162,7 +164,7 @@ class ParseNetscapeBookmarksTest extends TestCase
     /**
      * Parse boolean attribute values - evaluating to FALSE
      */
-    function testParseBooleanAttributesFalse()
+    public function testParseBooleanAttributesFalse()
     {
         // standard booleans
         $this->assertFalse($this->parser->parseBoolean('f'));
@@ -191,10 +193,10 @@ class ParseNetscapeBookmarksTest extends TestCase
     /**
      * Parse boolean attribute values - fail and return the default value
      */
-    function testParseBooleanAttributesDefault()
+    public function testParseBooleanAttributesDefault()
     {
         $default = 'def';
-        $parser = new NetscapeBookmarkParser(false, array(), $default);
+        $parser = new NetscapeBookmarkParser(false, [], $default);
 
         $this->assertEquals(
             $default,
@@ -398,7 +400,9 @@ class ParseNetscapeBookmarksTest extends TestCase
                        'oceans, escaping repeated attempts of capture. Then a dramatic pursuit ' .
                        'finally netted the one that got away.' . PHP_EOL;
         $description .= '<A href="http://localhost.localdomain:8083/Shaarli/?JVvqCA">' . PHP_EOL;
-        $description .= '<img src="http://localhost.localdomain:8083/Shaarli/cache/thumb/290ccda0deea6083ee613d358446103e/c975558ad43acdbd982ffafd8c01163d6c9ec5ca125901.jpg"/>' . PHP_EOL;
+        $description .= '<img src="http://localhost.localdomain:8083/Shaarli/cache/';
+        $description .= 'thumb/290ccda0deea6083ee613d358446103e/';
+        $description .= 'c975558ad43acdbd982ffafd8c01163d6c9ec5ca125901.jpg"/>' . PHP_EOL;
         $description .= '</A>';
 
         $this->assertEquals(

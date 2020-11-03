@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shaarli\NetscapeBookmarkParser;
 
 /**
@@ -46,7 +48,7 @@ class ParseGoogleBookmarksTest extends TestCase
         );
         $this->assertequals(
             'https://stackoverflow.com/questions/20180072/'
-            .'move-files-into-alphabetically-named-folders',
+            . 'move-files-into-alphabetically-named-folders',
             $bkm[1]['uri']
         );
 
