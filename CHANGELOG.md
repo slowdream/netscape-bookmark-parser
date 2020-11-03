@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v3.0.0](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v3.0.0) - 2020-11-03
+
+**Please read the changelog carefully, this is a major release, there are breaking changes.**
+
+## Added
+- Parsing now supports tags with multiple words separated by whitespaces.
+- Official PHP compatibility with PHP 7.3, 7.4 and 8.0.
+- Follow and enforce PSR-12 coding style
+
+## Changed
+- **Bookmark's tags now returns an array of tags instead of tags string separated by whitespaces.**
+
+## Removed
+- Drop support for PHP 5.6 and 7.0.
+
 ## [v2.2.0](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v2.2.0) - 2020-06-06
 ### Added
 - Support Shaarli extended format: allow <a> tag in bookmark description
