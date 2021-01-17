@@ -196,9 +196,9 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                 $this->logger->debug('[#' . $line_no . '] Date: ' . $this->items[$i]['time']);
 
                 if (preg_match('/(public|published|pub)="(.*?)"/i', $line, $m9)) {
-                    $this->items[$i]['pub'] = $this->parseBoolean($m9[2], false) ? 1 : 0;
+                    $this->items[$i]['pub'] = $this->parseBoolean($m9[2]) ? 1 : 0;
                 } elseif (preg_match('/(private|shared)="(.*?)"/i', $line, $m10)) {
-                    $this->items[$i]['pub'] = $this->parseBoolean($m10[2], true) ? 0 : 1;
+                    $this->items[$i]['pub'] = $this->parseBoolean($m10[2]) ? 0 : 1;
                 } else {
                     $this->items[$i]['pub'] = $this->defaultPub;
                 }
