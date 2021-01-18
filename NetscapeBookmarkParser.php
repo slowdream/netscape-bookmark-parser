@@ -318,49 +318,47 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      */
     public static function sanitizeString(string $bookmarkString): string
     {
-        $sanitized = $bookmarkString;
-
         // trim comments
-        $sanitized = preg_replace('@<!--.*?-->@mis', '', $sanitized);
+        $bookmarkString = preg_replace('@<!--.*?-->@mis', '', $bookmarkString);
 
         // keep one XML element per line to prepare for linear parsing
-        $sanitized = preg_replace('@>(\s*?)<@mis', ">\n<", $sanitized);
+        $bookmarkString = preg_replace('@>(\s*?)<@mis', ">\n<", $bookmarkString);
 
         // trim unused metadata
-        $sanitized = preg_replace('@(<!DOCTYPE|<META|<TITLE|<H1|<P).*\n@i', '', $sanitized);
+        $bookmarkString = preg_replace('@(<!DOCTYPE|<META|<TITLE|<H1|<P).*\n@i', '', $bookmarkString);
 
         // trim whitespace
-        $sanitized = trim($sanitized);
+        $bookmarkString = trim($bookmarkString);
 
         // trim carriage returns
-        $sanitized = str_replace("\r", '', $sanitized);
+        $bookmarkString = str_replace("\r", '', $bookmarkString);
 
         // convert multiline descriptions to one-line descriptions
         // line feeds are converted to <br>
-        $sanitized = preg_replace_callback(
+        $bookmarkString = preg_replace_callback(
             '@<DD>(.*?)(</?(:?DT|DD|DL))@mis',
             function ($match) {
                 return '<DD>' . str_replace("\n", '<br>', trim($match[1])) . PHP_EOL . $match[2];
             },
-            $sanitized
+            $bookmarkString
         );
 
         // convert multiline descriptions inside <A> tags to one-line descriptions
         // line feeds are converted to <br>
-        $sanitized = preg_replace_callback(
+        $bookmarkString = preg_replace_callback(
             '@<A(.*?)</A>@mis',
             function ($match) {
                 return '<A ' . str_replace("\n", '<br>', trim($match[1])) . '</A>';
             },
-            $sanitized
+            $bookmarkString
         );
 
         // concatenate all information related to the same entry on the same line
         // e.g. <A HREF="...">My Link</A><DD>List<br>- item1<br>- item2
-        $sanitized = preg_replace('@\n<br>@mis', "<br>", $sanitized);
-        $sanitized = preg_replace('@\n<DD@i', '<DD', $sanitized);
+        $bookmarkString = preg_replace('@\n<br>@mis', "<br>", $bookmarkString);
+        $bookmarkString = preg_replace('@\n<DD@i', '<DD', $bookmarkString);
 
-        return $sanitized;
+        return $bookmarkString;
     }
 
     /**
