@@ -212,7 +212,6 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
             }
         }
 
-        ksort($items);
         $this->logger->info('File parsing ended');
         return $items;
     }
