@@ -19,7 +19,6 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     protected $defaultPub;
     protected $normalizeDates;
     protected $dateRange;
-    protected $items = [];
 
     /**
      * @var LoggerInterface instance.
@@ -114,13 +113,16 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      */
     public function parseString(string $bookmarkString): array
     {
-        $i = 0;
         $folderTags = [];
         $groupedFolderTags = [];
+
+        $items = [];
 
         $lines = explode("\n", $this->sanitizeString($bookmarkString));
 
         foreach ($lines as $line_no => $line) {
+            $item = [];
+
             $this->logger->info('PARSING LINE #' . $line_no);
             $this->logger->debug('[#' . $line_no . '] Content: ' . $line);
             if (preg_match('/^<h\d.*>(.*)<\/h\d>/i', $line, $m1)) {
@@ -144,29 +146,29 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
             if (preg_match('/<a/i', $line, $m2)) {
                 $this->logger->debug('[#' . $line_no . '] Link found');
                 if (preg_match('/href="(.*?)"/i', $line, $m3)) {
-                    $this->items[$i]['uri'] = $m3[1];
+                    $item['uri'] = $m3[1];
                     $this->logger->debug('[#' . $line_no . '] URL found: ' . $m3[1]);
                 } else {
-                    $this->items[$i]['uri'] = '';
+                    $item['uri'] = '';
                     $this->logger->debug('[#' . $line_no . '] Empty URL');
                 }
 
                 if (preg_match('/<a.*?[^br]>(.*?)<\/a>/i', $line, $m4)) {
-                    $this->items[$i]['title'] = $m4[1];
+                    $item['title'] = $m4[1];
                     $this->logger->debug('[#' . $line_no . '] Title found: ' . $m4[1]);
                 } else {
-                    $this->items[$i]['title'] = 'untitled';
+                    $item['title'] = 'untitled';
                     $this->logger->debug('[#' . $line_no . '] Empty title');
                 }
 
                 if (preg_match('/(description|note)="(.*?)"/i', $line, $m5)) {
-                    $this->items[$i]['note'] = $m5[2];
+                    $item['note'] = $m5[2];
                     $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m5[2], 0, 50) . '...');
                 } elseif (preg_match('/<dd>(.*?)$/i', $line, $m6)) {
-                    $this->items[$i]['note'] = str_replace('<br>', "\n", $m6[1]);
+                    $item['note'] = str_replace('<br>', "\n", $m6[1]);
                     $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m6[1], 0, 50) . '...');
                 } else {
-                    $this->items[$i]['note'] = '';
+                    $item['note'] = '';
                     $this->logger->debug('[#' . $line_no . '] Empty content');
                 }
 
@@ -185,34 +187,33 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                         static::splitTagString($m7[2], $separator)
                     );
                 }
-                $this->items[$i]['tags'] = $tags;
-                $this->logger->debug('[#' . $line_no . '] Tag list: ' . implode(' ', $this->items[$i]['tags']));
+                $item['tags'] = $tags;
+                $this->logger->debug('[#' . $line_no . '] Tag list: ' . implode(' ', $item['tags']));
 
                 if (preg_match('/add_date="(.*?)"/i', $line, $m8)) {
-                    $this->items[$i]['time'] = $this->parseDate($m8[1]);
+                    $item['time'] = $this->parseDate($m8[1]);
                 } else {
-                    $this->items[$i]['time'] = time();
+                    $item['time'] = time();
                 }
-                $this->logger->debug('[#' . $line_no . '] Date: ' . $this->items[$i]['time']);
+                $this->logger->debug('[#' . $line_no . '] Date: ' . $item['time']);
 
                 if (preg_match('/(public|published|pub)="(.*?)"/i', $line, $m9)) {
-                    $this->items[$i]['pub'] = $this->parseBoolean($m9[2]) ? 1 : 0;
+                    $item['pub'] = $this->parseBoolean($m9[2]) ? 1 : 0;
                 } elseif (preg_match('/(private|shared)="(.*?)"/i', $line, $m10)) {
-                    $this->items[$i]['pub'] = $this->parseBoolean($m10[2]) ? 0 : 1;
+                    $item['pub'] = $this->parseBoolean($m10[2]) ? 0 : 1;
                 } else {
-                    $this->items[$i]['pub'] = $this->defaultPub;
+                    $item['pub'] = $this->defaultPub;
                 }
                 $this->logger->debug(
-                    '[#' . $line_no . '] Visibility: ' . ($this->items[$i]['pub'] ? 'public' : 'private')
+                    '[#' . $line_no . '] Visibility: ' . ($item['pub'] ? 'public' : 'private')
                 );
 
-                $i++;
+                $items[] = $item;
             }
         }
 
-        ksort($this->items);
         $this->logger->info('File parsing ended');
-        return $this->items;
+        return $items;
     }
 
     /**
