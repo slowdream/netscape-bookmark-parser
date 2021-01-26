@@ -120,56 +120,56 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
 
         $lines = explode("\n", $this->sanitizeString($bookmarkString));
 
-        foreach ($lines as $line_no => $line) {
+        foreach ($lines as $lineNumber => $line) {
             $item = [];
 
-            $this->logger->info('PARSING LINE #' . $line_no);
-            $this->logger->debug('[#' . $line_no . '] Content: ' . $line);
-            if (preg_match('/^<h\d.*>(.*)<\/h\d>/i', $line, $m1)) {
+            $this->logger->info('PARSING LINE #' . $lineNumber);
+            $this->logger->debug('[#' . $lineNumber . '] Content: ' . $line);
+            if (preg_match('/^<h\d.*>(.*)<\/h\d>/i', $line, $header)) {
                 // a header is matched:
                 // - links may be grouped in a (sub-)folder
                 // - append the header's content to the folder tags
-                $tag = static::sanitizeTags($m1[1]);
+                $tag = static::sanitizeTags($header[1]);
 
                 $groupedFolderTags[] = $tag;
                 $folderTags = static::flattenTagsList($groupedFolderTags);
-                $this->logger->debug('[#' . $line_no . '] Header found: ' . implode(' ', $tag));
+                $this->logger->debug('[#' . $lineNumber . '] Header found: ' . implode(' ', $tag));
                 continue;
             } elseif (preg_match('/^<\/DL>/i', $line)) {
                 // </DL> matched: stop using header value
                 $tag = array_pop($groupedFolderTags);
                 $folderTags = static::flattenTagsList($groupedFolderTags);
-                $this->logger->debug('[#' . $line_no . '] Header ended: ' . implode(' ', $tag ?? []));
+                $this->logger->debug('[#' . $lineNumber . '] Header ended: ' . implode(' ', $tag ?? []));
                 continue;
             }
 
-            if (preg_match('/<a/i', $line, $m2)) {
-                $this->logger->debug('[#' . $line_no . '] Link found');
-                if (preg_match('/href="(.*?)"/i', $line, $m3)) {
-                    $item['uri'] = $m3[1];
-                    $this->logger->debug('[#' . $line_no . '] URL found: ' . $m3[1]);
+            if (preg_match('/<a/i', $line)) {
+                $this->logger->debug('[#' . $lineNumber . '] Link found');
+                if (preg_match('/href="(.*?)"/i', $line, $href)) {
+                    $item['uri'] = $href[1];
+                    $this->logger->debug('[#' . $lineNumber . '] URL found: ' . $href[1]);
                 } else {
                     $item['uri'] = '';
-                    $this->logger->debug('[#' . $line_no . '] Empty URL');
+                    $this->logger->debug('[#' . $lineNumber . '] Empty URL');
                 }
 
-                if (preg_match('/<a.*?[^br]>(.*?)<\/a>/i', $line, $m4)) {
-                    $item['title'] = $m4[1];
-                    $this->logger->debug('[#' . $line_no . '] Title found: ' . $m4[1]);
+                if (preg_match('/<a.*?[^br]>(.*?)<\/a>/i', $line, $title)) {
+                    $item['title'] = $title[1];
+                    $this->logger->debug('[#' . $lineNumber . '] Title found: ' . $title[1]);
                 } else {
                     $item['title'] = 'untitled';
-                    $this->logger->debug('[#' . $line_no . '] Empty title');
+                    $this->logger->debug('[#' . $lineNumber . '] Empty title');
                 }
 
-                if (preg_match('/(description|note)="(.*?)"/i', $line, $m5)) {
-                    $item['note'] = $m5[2];
-                    $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m5[2], 0, 50) . '...');
-                } elseif (preg_match('/<dd>(.*?)$/i', $line, $m6)) {
-                    $item['note'] = str_replace('<br>', "\n", $m6[1]);
-                    $this->logger->debug('[#' . $line_no . '] Content found: ' . substr($m6[1], 0, 50) . '...');
+                if (preg_match('/(description|note)="(.*?)"/i', $line, $description)) {
+                    $item['note'] = $description[2];
+                    $this->logger->debug('[#' . $lineNumber . '] Content found: ' . substr($description[2], 0, 50) . '...');
+                } elseif (preg_match('/<dd>(.*?)$/i', $line, $note)) {
+                    $item['note'] = str_replace('<br>', "\n", $note[1]);
+                    $this->logger->debug('[#' . $lineNumber . '] Content found: ' . substr($note[1], 0, 50) . '...');
                 } else {
                     $item['note'] = '';
-                    $this->logger->debug('[#' . $line_no . '] Empty content');
+                    $this->logger->debug('[#' . $lineNumber . '] Empty content');
                 }
 
                 $tags = [];
@@ -180,32 +180,32 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
                     $tags = array_merge($tags, $folderTags);
                 }
 
-                if (preg_match('/(tags?|labels?|folders?)="(.*?)"/i', $line, $m7)) {
-                    $separator = strpos($m7[2], ',') !== false ? ',' : ' ';
+                if (preg_match('/(tags?|labels?|folders?)="(.*?)"/i', $line, $labels)) {
+                    $separator = strpos($labels[2], ',') !== false ? ',' : ' ';
                     $tags = array_merge(
                         $tags,
-                        static::splitTagString($m7[2], $separator)
+                        static::splitTagString($labels[2], $separator)
                     );
                 }
                 $item['tags'] = $tags;
-                $this->logger->debug('[#' . $line_no . '] Tag list: ' . implode(' ', $item['tags']));
+                $this->logger->debug('[#' . $lineNumber . '] Tag list: ' . implode(' ', $item['tags']));
 
-                if (preg_match('/add_date="(.*?)"/i', $line, $m8)) {
-                    $item['time'] = $this->parseDate($m8[1]);
+                if (preg_match('/add_date="(.*?)"/i', $line, $addDate)) {
+                    $item['time'] = $this->parseDate($addDate[1]);
                 } else {
                     $item['time'] = time();
                 }
-                $this->logger->debug('[#' . $line_no . '] Date: ' . $item['time']);
+                $this->logger->debug('[#' . $lineNumber . '] Date: ' . $item['time']);
 
-                if (preg_match('/(public|published|pub)="(.*?)"/i', $line, $m9)) {
-                    $item['pub'] = $this->parseBoolean($m9[2]) ? 1 : 0;
-                } elseif (preg_match('/(private|shared)="(.*?)"/i', $line, $m10)) {
-                    $item['pub'] = $this->parseBoolean($m10[2]) ? 0 : 1;
+                if (preg_match('/(public|published|pub)="(.*?)"/i', $line, $public)) {
+                    $item['pub'] = $this->parseBoolean($public[2]) ? 1 : 0;
+                } elseif (preg_match('/(private|shared)="(.*?)"/i', $line, $private)) {
+                    $item['pub'] = $this->parseBoolean($private[2]) ? 0 : 1;
                 } else {
                     $item['pub'] = $this->defaultPub;
                 }
                 $this->logger->debug(
-                    '[#' . $line_no . '] Visibility: ' . ($item['pub'] ? 'public' : 'private')
+                    '[#' . $lineNumber . '] Visibility: ' . ($item['pub'] ? 'public' : 'private')
                 );
 
                 $items[] = $item;
