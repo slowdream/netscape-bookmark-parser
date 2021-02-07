@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Shaarli\NetscapeBookmarkParser;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Ensure Safari exports are properly parsed
  */
 class ParseSafariBookmarksTest extends TestCase
 {
-    /**
-     * Delete log file.
-     */
-    protected function tearDown(): void
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
-    }
-
     /**
      * Parse bookmarks as exported by Safari - Strip punctuation from folder names
      */

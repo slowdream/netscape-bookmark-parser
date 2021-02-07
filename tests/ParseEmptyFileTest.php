@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Shaarli\NetscapeBookmarkParser;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Ensure that trying to import an empty file is handled properly.
  */
 class ParseEmptyFileTest extends TestCase
 {
-    /**
-     * Delete log file.
-     */
-    public function tearDown(): void
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
-    }
-
     /**
      * Parse flat Firefox bookmarks (no directories)
      */

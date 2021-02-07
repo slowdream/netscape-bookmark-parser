@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 namespace Shaarli\NetscapeBookmarkParser;
 
+use PHPUnit\Framework\TestCase;
+
 class ParseShaarliWithWhitespaceTagsTest extends TestCase
 {
-    /**
-     * Delete log file.
-     */
-    public function tearDown(): void
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
-    }
-
     /**
      * Parse flat Chromium bookmarks (no directories)
      */

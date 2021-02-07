@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shaarli\NetscapeBookmarkParser;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Ensure Firefox exports are properly parsed
  *
@@ -11,14 +13,6 @@ namespace Shaarli\NetscapeBookmarkParser;
  */
 class ParseFirefoxBookmarksTest extends TestCase
 {
-    /**
-     * Delete log file.
-     */
-    protected function tearDown(): void
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
-    }
-
     /**
      * Parse flat Firefox bookmarks (no directories)
      */
