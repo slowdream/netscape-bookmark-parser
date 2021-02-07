@@ -25,8 +25,8 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      */
     protected $logger;
 
-    protected const TRUE_PATTERN = 'y|yes|on|checked|ok|1|true|array|\+|okay|yes|t|one';
-    protected const FALSE_PATTERN = 'n|no|off|empty|null|false|nil|0|-|exit|die|neg|f|zero|void';
+    public const TRUE_PATTERN = '1|\+|array|checked|ok|okay|on|one|t|true|y|yes';
+    public const FALSE_PATTERN = '-|0|die|empty|exit|f|false|n|neg|nil|no|null|off|void|zero';
 
     /**
      * Instantiates a new NetscapeBookmarkParser
