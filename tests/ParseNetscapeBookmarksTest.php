@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shaarli\NetscapeBookmarkParser;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Ensure basic Netscape bookmarks are properly parsed
  *
@@ -20,14 +22,6 @@ class ParseNetscapeBookmarksTest extends TestCase
     protected function setUp(): void
     {
         $this->parser = new NetscapeBookmarkParser(true, [], 'error');
-    }
-
-    /**
-     * Delete log file.
-     */
-    protected function tearDown(): void
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
     }
 
     /**

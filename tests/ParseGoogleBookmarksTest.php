@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shaarli\NetscapeBookmarkParser;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Ensure Google Bookmarks exports are properly parsed
  *
@@ -11,14 +13,6 @@ namespace Shaarli\NetscapeBookmarkParser;
  */
 class ParseGoogleBookmarksTest extends TestCase
 {
-    /**
-     * Delete log file.
-     */
-    protected function tearDown(): void
-    {
-        @unlink(LoggerTestsUtils::getLogFile());
-    }
-
     /**
      * Parse nested Google Bookmarks (directories and subdirectories)
      */

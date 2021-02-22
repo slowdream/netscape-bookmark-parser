@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Shaarli\NetscapeBookmarkParser;
 
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
-use Katzgrau\KLogger\Logger;
+use Psr\Log\NullLogger;
 
 /**
  * Generic Netscape bookmark parser
  */
-class NetscapeBookmarkParser implements LoggerAwareInterface
+class NetscapeBookmarkParser
 {
     protected $keepNestedTags;
     protected $defaultTags;
@@ -25,29 +23,29 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      */
     protected $logger;
 
-    protected const TRUE_PATTERN = 'y|yes|on|checked|ok|1|true|array|\+|okay|yes|t|one';
-    protected const FALSE_PATTERN = 'n|no|off|empty|null|false|nil|0|-|exit|die|neg|f|zero|void';
+    public const TRUE_PATTERN = '1|\+|array|checked|ok|okay|on|one|t|true|y|yes';
+    public const FALSE_PATTERN = '-|0|die|empty|exit|f|false|n|neg|nil|no|null|off|void|zero';
 
     /**
      * Instantiates a new NetscapeBookmarkParser
      *
-     * @param bool        $keepNestedTags Tag links with parent folder names
-     * @param array|null  $defaultTags    Tag all links with these values
-     * @param mixed       $defaultPub     Link publication status if missing
-     *                                      - '1' => public
-     *                                      - '0' => private)
-     * @param string|null $logDir         Log directory
-     * @param bool        $normalizeDates Whether parsed dates are expected to fall within
-     *                                    a given date/time interval
-     * @param string      $dateRange      Delta used to compute the "acceptable" date/time interval
+     * @param bool                 $keepNestedTags Tag links with parent folder names
+     * @param array|null           $defaultTags    Tag all links with these values
+     * @param mixed                $defaultPub     Link publication status if missing
+     *                                             - '1' => public
+     *                                             - '0' => private)
+     * @param bool                 $normalizeDates Whether parsed dates are expected to fall within
+     *                                             a given date/time interval
+     * @param string               $dateRange      Delta used to compute the "acceptable" date/time interval
+     * @param LoggerInterface|null $logger         PSR-3 compliant logger
      */
     public function __construct(
         bool $keepNestedTags = true,
         ?array $defaultTags = [],
         $defaultPub = '0',
-        string $logDir = null,
         bool $normalizeDates = true,
-        string $dateRange = '30 years'
+        string $dateRange = '30 years',
+        LoggerInterface $logger = null
     ) {
         if ($keepNestedTags) {
             $this->keepNestedTags = true;
@@ -59,17 +57,9 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         }
         $this->defaultPub = $defaultPub;
 
-        $this->setLogger(new Logger(
-            $logDir == null ? 'logs/' : $logDir,
-            LogLevel::INFO,
-            [
-                'prefix' => 'import.',
-                'extension' => 'log',
-            ]
-        ));
-
         $this->normalizeDates = $normalizeDates;
         $this->dateRange = $dateRange;
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -82,6 +72,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
     public function parseFile(string $filename): array
     {
         $this->logger->info('Starting to parse ' . $filename);
+
         return $this->parseString(file_get_contents($filename));
     }
 
@@ -99,6 +90,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      *                 [tags]  => ['a', 'list', 'of', 'tags']
      *                 [time]  => 1459371397
      *                 [title] => Some page
+     *                 [icon]  => data:image/png;base64, ...
      *                 [uri]   => http://domain.tld:5678/some-page.html
      *             )
      *         [1] => Array
@@ -223,6 +215,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         }
 
         $this->logger->info('File parsing ended');
+
         return $items;
     }
 
@@ -244,6 +237,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
             if ($this->normalizeDates) {
                 $date = $this->normalizeDate($date);
             }
+
             return strtotime('@' . $date);
         } elseif (strtotime($date)) {
             // attempt to parse a known compound date/time format
@@ -270,7 +264,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      * @see https://stackoverflow.com/questions/539900/google-bookmark-export-date-format
      * @see https://www.wired.com/2010/11/1110mars-climate-observer-report/
      *
-     * @param string $epoch     Unix timestamp to normalize
+     * @param string $epoch Unix timestamp to normalize
      *
      * @return int Unix timestamp in seconds, within the expected range
      */
@@ -287,11 +281,10 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         return $date->getTimestamp();
     }
 
-
     /**
      * Parses the value of a supposedly boolean attribute
      *
-     * @param string $value   Attribute value to evaluate
+     * @param string $value Attribute value to evaluate
      *
      * @return mixed 'true' when the value is evaluated as true
      *               'false' when the value is evaluated as false
@@ -299,10 +292,10 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      */
     public function parseBoolean($value)
     {
-        if (! $value) {
+        if (!$value) {
             return false;
         }
-        if (! is_string($value)) {
+        if (!is_string($value)) {
             return true;
         }
 
@@ -312,6 +305,7 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
         if (preg_match("/^(" . self::FALSE_PATTERN . ")$/i", $value)) {
             return false;
         }
+
         return $this->defaultPub;
     }
 
@@ -439,20 +433,12 @@ class NetscapeBookmarkParser implements LoggerAwareInterface
      */
     public static function flattenTagsList(array $groupedTags): array
     {
-        return array_reduce($groupedTags, function (array $carry, array $item) {
-            return array_merge($carry, $item);
-        }, []);
-    }
-
-    /**
-     * Set the logger, must be PSR-3 compliant.
-     *
-     * @see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
-     *
-     * @param LoggerInterface $logger
-     */
-    public function setLogger(LoggerInterface $logger): void
-    {
-        $this->logger = $logger;
+        return array_reduce(
+            $groupedTags,
+            function (array $carry, array $item) {
+                return array_merge($carry, $item);
+            },
+            []
+        );
     }
 }
