@@ -4,12 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [4.0.0](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v4.0.0) - 2022-08-13
 
 **Please read the changelog carefully, this is a major release, there are breaking changes.**
 
 ### Added
-- `NetscapeBookmarkEncoder` and `NetscapeBookmark.Decoder` classes.
+- `NetscapeBookmarkEncoder` and `NetscapeBookmarkDecoder` classes.
 - CHANGELOG.md and contributor CODE_OF_CONDUCT.md.
 - github ISSUE_TEMPLATE.md for bug reports and feature requests.
 - `supportsDecoding` method and `self::FORMAT` class constant (for future Interface conformity and Symfony services integration).
@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - TRUE_PATTERN yes appears twice; ordered alphabetically.
 
 ### Removed
-- travis.yml, .editorconfig, .gitattributes
+- travis.yml, .gitattributes
 
 ## [v3.2.0](https://github.com/shaarli/netscape-bookmark-parser/releases/tag/v3.2.0) - 2021-02-22
 
